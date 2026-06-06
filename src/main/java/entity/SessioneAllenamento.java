@@ -15,6 +15,8 @@ public class SessioneAllenamento {
     private String descrizione;
     private Date date;
     private Duration durataPrevista;
+
+    @Enumerated(EnumType.STRING)
     private StatoSessione statoSessione;
 
     @ManyToOne
