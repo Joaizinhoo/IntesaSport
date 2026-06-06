@@ -2,29 +2,31 @@ package entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "utenti")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_utente", discriminatorType = DiscriminatorType.STRING)
 public class Utente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String email;
 
     private String nome;
     private String cognome;
-    private String email;
     private String disciplinaPrevalente;
 
     public Utente(){
     }
 
-    public Long getId(){
-        return this.id;
+    public Utente(String email, String nome, String cognome, String disciplina) {
+        this.email = email;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.disciplinaPrevalente = disciplina;
     }
 
-    public void setId(Long id){
-        this.id = id;
+    private void disco() {
     }
 
     public String getNome(){
@@ -57,5 +59,27 @@ public class Utente {
 
     public void setDisciplinaPrevalente(String disciplinaPrevalente){
         this.disciplinaPrevalente = disciplinaPrevalente;
+    }
+
+    @Override
+    public String toString() {
+        return "Utente{" +
+                "email='" + email + '\'' +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", disciplinaPrevalente='" + disciplinaPrevalente + '\'' +
+                '}';
+    }
+
+    //Due utenti sono uguali se hanno la stessa email
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Utente utente)) return false;
+        return Objects.equals(email, utente.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 }

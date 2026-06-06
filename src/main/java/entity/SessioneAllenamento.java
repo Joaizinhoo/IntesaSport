@@ -90,4 +90,19 @@ public class SessioneAllenamento {
     public void setAtleta(Atleta atleta) {
         this.atleta = atleta;
     }
+
+    @Override
+    public String toString() {
+        return "SessioneAllenamento{" +
+                "id=" + id +
+                ", titolo='" + titolo + '\'' +
+                ", descrizione='" + descrizione + '\'' +
+                ", date=" + date +
+                ", durataPrevista=" + durataPrevista +
+                ", statoSessione=" + statoSessione +
+                ", allenatore=" + allenatore +
+                ", atleta=" + atleta +
+                '}';
+    }
+
 }
