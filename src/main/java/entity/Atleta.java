@@ -19,8 +19,8 @@ public class Atleta extends Utente{
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "atleta_allenatore",
-            joinColumns = { @JoinColumn(name = "email_allenatore") },
-            inverseJoinColumns = { @JoinColumn(name = "email_atleta") }
+            joinColumns = { @JoinColumn(name = "email_atleta") },
+            inverseJoinColumns = { @JoinColumn(name = "email_allenatore") }
     )
     private Set<Allenatore> AllenatoriAssociati = new HashSet<>();
 

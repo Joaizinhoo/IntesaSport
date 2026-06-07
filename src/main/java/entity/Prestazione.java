@@ -17,7 +17,7 @@ public class Prestazione {
     public Prestazione() {
     }
 
-    public Prestazione(Duration tempoImpiegato, String note, int effettiveRipetizioni, Long id) {
+    public Prestazione(Duration tempoImpiegato, String note, int effettiveRipetizioni) {
         this.tempoImpiegato = tempoImpiegato;
         this.note = note;
         this.effettiveRipetizioni = effettiveRipetizioni;

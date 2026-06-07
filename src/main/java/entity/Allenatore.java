@@ -62,7 +62,7 @@ public class Allenatore extends Utente{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Atleta atleta)) return false;
+        if (!(o instanceof Allenatore allenatore)) return false;
 
         // controllo se sono uguali come UTENTI
         if (!super.equals(o)) return false;
