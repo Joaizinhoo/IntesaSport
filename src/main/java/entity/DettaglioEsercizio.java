@@ -21,6 +21,10 @@ public class DettaglioEsercizio {
     @JoinColumn(name = "esercizio_id")
     private Esercizio esercizio;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "prestazione_id")
+    private Prestazione prestazione;
+
     public DettaglioEsercizio() {}
 
     public DettaglioEsercizio(SessioneAllenamento sessione, Esercizio esercizio, Duration durata, int ripetizioni) {
