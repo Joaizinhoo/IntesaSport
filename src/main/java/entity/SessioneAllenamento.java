@@ -3,7 +3,9 @@ package entity;
 import jakarta.persistence.*;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class SessioneAllenamento {
@@ -26,6 +28,9 @@ public class SessioneAllenamento {
     @ManyToOne
     @JoinColumn(name = "atleta_id")
     private Atleta atleta;
+
+    @OneToMany(mappedBy = "sessioneAllenamento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DettaglioEsercizio> esercizi = new ArrayList<>();
 
     public Long getId() {
         return id;

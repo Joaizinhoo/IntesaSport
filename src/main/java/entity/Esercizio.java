@@ -18,7 +18,7 @@ public class Esercizio {
     private String nome;
     private String descrizione;
 
-    public Esercizio() {};
+    public Esercizio() {}
 
     public Esercizio(String nome, String descrizione) {
         this.nome = nome;

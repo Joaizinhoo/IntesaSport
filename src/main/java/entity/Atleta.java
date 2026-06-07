@@ -1,9 +1,6 @@
 package entity;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.*;
 
@@ -19,7 +16,12 @@ public class Atleta extends Utente{
     private String esperienza;
     private String obiettiviSportivi;
 
-    //////ManyToMany*(mappedBy = "");
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "atleta_allenatore",
+            joinColumns = { @JoinColumn(name = "email_allenatore") },
+            inverseJoinColumns = { @JoinColumn(name = "email_atleta") }
+    )
     private Set<Allenatore> AllenatoriAssociati = new HashSet<>();
 
     @OneToMany(mappedBy = "atleta")
