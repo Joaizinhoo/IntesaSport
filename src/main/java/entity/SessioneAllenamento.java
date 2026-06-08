@@ -131,5 +131,17 @@ public class SessioneAllenamento {
                 ", atleta=" + atleta +
                 '}';
     }
+    public void aggiungiDettaglioEsercizio(DettaglioEsercizio dettaglio) {
+        if (dettaglio == null) {
+            throw new IllegalArgumentException("Dettaglio esercizio non valido");
+        }
+
+        dettaglio.setSessioneAllenamento(this);
+        this.dettaglioEsercizi.add(dettaglio);
+    }
+    public List<DettaglioEsercizio> getDettaglioEsercizi() {
+        return dettaglioEsercizi;
+    }
+
 
 }

@@ -84,5 +84,6 @@ public class DettaglioEsercizio {
                 ", esercizio=" + esercizio +
                 '}';
     }
+
 }
 
