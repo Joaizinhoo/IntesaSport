@@ -8,6 +8,18 @@ import java.time.Duration;
 
 public class GestioneSessioneControl {
 
+    public Esercizio creaEsercizio(String nome, String descrizione) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome esercizio non valido");
+        }
+
+        Esercizio esercizio = new Esercizio();
+        esercizio.setNome(nome);
+        esercizio.setDescrizione(descrizione);
+
+        return esercizio;
+    }
+
     public void aggiungiEsercizio(
             SessioneAllenamento sessione,
             Esercizio esercizio,
@@ -27,7 +39,6 @@ public class GestioneSessioneControl {
         }
 
         DettaglioEsercizio dettaglio = new DettaglioEsercizio();
-
         dettaglio.setSessioneAllenamento(sessione);
         dettaglio.setEsercizio(esercizio);
 
