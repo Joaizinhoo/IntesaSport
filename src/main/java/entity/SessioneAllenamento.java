@@ -1,5 +1,6 @@
 package entity;
 
+import database.GestorePersistenza;
 import jakarta.persistence.*;
 
 import java.time.Duration;
@@ -30,7 +31,28 @@ public class SessioneAllenamento {
     private Atleta atleta;
 
     @OneToMany(mappedBy = "sessioneAllenamento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DettaglioEsercizio> esercizi = new ArrayList<>();
+    private List<DettaglioEsercizio> dettaglioEsercizi = new ArrayList<>();
+
+    public List<EsercizioDettaglioDTO> getListaEserciziSessione(){
+        GestorePersistenza gp = new GestorePersistenza();
+
+        List<EsercizioDettaglioDTO> dtoList = new ArrayList<>();
+
+        for (DettaglioEsercizio dettaglio: this.dettaglioEsercizi){
+            Esercizio esercizio = dettaglio.getEsercizio();
+
+            EsercizioDettaglioDTO dto = new EsercizioDettaglioDTO(
+                    dettaglio.getRipetizioni(),
+                    dettaglio.getDurata(),
+                    esercizio.getNome(),
+                    esercizio.getDescrizione()
+            );
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+    }
 
     public Long getId() {
         return id;

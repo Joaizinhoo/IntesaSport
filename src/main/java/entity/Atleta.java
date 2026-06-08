@@ -1,5 +1,7 @@
 package entity;
 
+import com.mysql.cj.Session;
+import database.GestorePersistenza;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -39,6 +41,61 @@ public class Atleta extends Utente{
         this.disciplinaPraticata = disciplinaPraticata;
         this.esperienza = esperienza;
         this.obiettiviSportivi = obiettiviSportivi;
+    }
+
+    public List<SessioneDTO> visualizzaSessioniAssegnate(Date data, StatoSessione stato, String disciplina){
+        GestorePersistenza gp = new GestorePersistenza();
+
+        List<SessioneDTO> dtoList = new ArrayList<>();
+
+        List<SessioneAllenamento> sessioniNonFiltrate =  gp.cercaPerCampo(
+                SessioneAllenamento.class,
+                "atleta_id",
+                this.getEmail()
+        );
+
+        for (SessioneAllenamento s: ordinaEFiltraSessioni(sessioniNonFiltrate, data, stato, disciplina)){
+            List<EsercizioDettaglioDTO> listaEsercizi = s.getListaEserciziSessione();
+
+            SessioneDTO dto = new SessioneDTO(
+                    s.getId(),
+                    s.getTitolo(),
+                    s.getDescrizione(),
+                    s.getDate(),
+                    s.getDurataPrevista(),
+                    s.getStatoSessione(),
+                    listaEsercizi
+            );
+
+            dtoList.add(dto);
+        }
+
+        return dtoList;
+
+    }
+
+    public List<SessioneAllenamento> ordinaEFiltraSessioni(List<SessioneAllenamento> sessioniDaOrdinare, Date data, StatoSessione stato, String disciplina) {
+        List<SessioneAllenamento> sessioniFiltrate = new ArrayList<>();
+
+        if (sessioniDaOrdinare == null) {
+            return sessioniFiltrate;
+        }
+
+        if (!this.disciplinaPraticata.equals(disciplina)) {
+            return sessioniFiltrate;
+        }
+
+        for (SessioneAllenamento s : sessioniDaOrdinare) {
+            // Controlliamo solo i dati della sessione corrente (data e stato)
+            if (s.getDate().equals(data) && s.getStatoSessione().equals(stato)) {
+                sessioniFiltrate.add(s);
+            }
+        }
+
+        // Logica di business: ordina le sessioni per data
+        sessioniFiltrate.sort(Comparator.comparing(SessioneAllenamento::getDate));
+
+        return sessioniFiltrate;
     }
 
     /// SETTER
