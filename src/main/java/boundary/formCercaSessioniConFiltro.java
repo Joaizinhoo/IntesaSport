@@ -116,16 +116,23 @@ public class formCercaSessioniConFiltro {
     private void mostraSessioni(Map<String, SessioneUI> sessioni) {
         risultatiPanel.removeAll();
 
+        // ✅ FIX: forza il pannello ad allinearsi correttamente
+        risultatiPanel.setLayout(new BoxLayout(risultatiPanel, BoxLayout.Y_AXIS));
+
         if (sessioni.isEmpty()) {
             JLabel nessuno = new JLabel("Nessuna sessione trovata.");
             nessuno.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+            nessuno.setAlignmentX(Component.LEFT_ALIGNMENT);
             risultatiPanel.add(nessuno);
         }
 
         for (SessioneUI s : sessioni.values()) {
             risultatiPanel.add(creaCard(s));
-            risultatiPanel.add(Box.createVerticalStrut(10)); // spazio tra card
+            risultatiPanel.add(Box.createVerticalStrut(10));
         }
+
+        // ✅ FIX: aggiunge spazio vuoto in fondo per non stirare l'ultima card
+        risultatiPanel.add(Box.createVerticalGlue());
 
         risultatiPanel.revalidate();
         risultatiPanel.repaint();
@@ -141,7 +148,6 @@ public class formCercaSessioniConFiltro {
                 BorderFactory.createEmptyBorder(10, 12, 10, 12)
         ));
         card.setBackground(new Color(245, 248, 255));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, card.getPreferredSize().height));
 
         // -- Header: titolo + badge stato --
         JPanel header = new JPanel(new BorderLayout());
@@ -180,7 +186,6 @@ public class formCercaSessioniConFiltro {
             eserciziPanel.add(btn);
         }
 
-        // -- Assemblaggio card --
         JPanel corpo = new JPanel(new GridLayout(2, 1, 0, 4));
         corpo.setOpaque(false);
         corpo.add(info);
@@ -188,6 +193,11 @@ public class formCercaSessioniConFiltro {
 
         card.add(header, BorderLayout.NORTH);
         card.add(corpo,  BorderLayout.CENTER);
+
+        // ✅ FIX: setMaximumSize DOPO aver aggiunto tutti i componenti
+        card.setAlignmentX(Component.LEFT_ALIGNMENT); // ✅ fondamentale per BoxLayout
+        Dimension pref = card.getPreferredSize();
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, pref.height + 20));
 
         return card;
     }
