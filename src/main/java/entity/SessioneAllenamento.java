@@ -17,7 +17,7 @@ public class SessioneAllenamento {
     private String titolo;
     private String descrizione;
     private Date date;
-    private Integer durataPrevista;
+    private Duration durataPrevista;
 
     @Enumerated(EnumType.STRING)
     private StatoSessione statoSessione;

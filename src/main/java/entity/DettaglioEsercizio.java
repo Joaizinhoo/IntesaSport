@@ -10,7 +10,7 @@ public class DettaglioEsercizio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer durata;
+    private Duration durata;
     private int ripetizioni;
 
     @ManyToOne(fetch = FetchType.LAZY)
