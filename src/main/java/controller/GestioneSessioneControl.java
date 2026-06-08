@@ -40,3 +40,4 @@ public class GestioneSessioneControl {
         sessione.aggiungiDettaglioEsercizio(dettaglio);
     }
 }
+
