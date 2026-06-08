@@ -130,6 +130,22 @@ public class GestorePersistenza {
         }
     }
 
+    public <T> T trovaPerEmail(Class<T> classe, String email) {
+
+        EntityManager em = JpaUtil.getInstance().getEntityManager();
+
+        try {
+            /*
+             * find cerca nel database una riga della tabella associata
+             * alla classe indicata, usando l'id come chiave primaria.
+             */
+            return em.find(classe, email);
+
+        } finally {
+            em.close();
+        }
+    }
+
     /*
      * Cerca tutti gli oggetti persistenti di una certa classe
      * per cui un campo ha un determinato valore.
