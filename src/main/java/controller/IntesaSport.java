@@ -73,7 +73,7 @@ public class IntesaSport {
 
         return righeTabella;
     }
-    public Esercizio creaEsercizio(String nome, String descrizione) {
+    public static Esercizio creaEsercizio(String nome, String descrizione) {
         if (nome == null || nome.isBlank()) {
             throw new IllegalArgumentException("Nome esercizio non valido");
         }
@@ -85,7 +85,7 @@ public class IntesaSport {
         return esercizio;
     }
 
-    public void aggiungiEsercizio(
+    public static void aggiungiEsercizio(
             SessioneAllenamento sessione,
             Esercizio esercizio,
             Integer ripetizioniPreviste,
@@ -104,6 +104,7 @@ public class IntesaSport {
         }
 
         DettaglioEsercizio dettaglio = new DettaglioEsercizio();
+
         dettaglio.setSessioneAllenamento(sessione);
         dettaglio.setEsercizio(esercizio);
 
