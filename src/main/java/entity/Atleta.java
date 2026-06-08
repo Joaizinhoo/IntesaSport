@@ -86,13 +86,11 @@ public class Atleta extends Utente{
         }
 
         for (SessioneAllenamento s : sessioniDaOrdinare) {
-            // Controlliamo solo i dati della sessione corrente (data e stato)
             if (s.getDate().equals(data) && s.getStatoSessione().equals(stato)) {
                 sessioniFiltrate.add(s);
             }
         }
 
-        // Logica di business: ordina le sessioni per data
         sessioniFiltrate.sort(Comparator.comparing(SessioneAllenamento::getDate));
 
         return sessioniFiltrate;
