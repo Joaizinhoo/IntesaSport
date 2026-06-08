@@ -30,7 +30,7 @@ public class SessioneAllenamento {
     @JoinColumn(name = "atleta_id")
     private Atleta atleta;
 
-    @OneToMany(mappedBy = "sessioneAllenamento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "sessioneAllenamento", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DettaglioEsercizio> dettaglioEsercizi = new ArrayList<>();
 
     public List<EsercizioDettaglioDTO> getListaEserciziSessione(){
