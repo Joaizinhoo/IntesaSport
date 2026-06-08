@@ -17,7 +17,7 @@ public class SessioneAllenamento {
     private String titolo;
     private String descrizione;
     private Date date;
-    private Duration durataPrevista;
+    private Integer durataPrevista;
 
     @Enumerated(EnumType.STRING)
     private StatoSessione statoSessione;
@@ -131,5 +131,17 @@ public class SessioneAllenamento {
                 ", atleta=" + atleta +
                 '}';
     }
+    public void aggiungiDettaglioEsercizio(DettaglioEsercizio dettaglio) {
+        if (dettaglio == null) {
+            throw new IllegalArgumentException("Dettaglio esercizio non valido");
+        }
+
+        dettaglio.setSessioneAllenamento(this);
+        this.dettaglioEsercizi.add(dettaglio);
+    }
+    public List<DettaglioEsercizio> getDettaglioEsercizi() {
+        return dettaglioEsercizi;
+    }
+
 
 }
