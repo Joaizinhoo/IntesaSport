@@ -115,24 +115,43 @@ public class formCercaSessioniConFiltro {
     // ----------------------------------------------------------------
     private void mostraSessioni(Map<String, SessioneUI> sessioni) {
         risultatiPanel.removeAll();
-
-        // ✅ FIX: forza il pannello ad allinearsi correttamente
         risultatiPanel.setLayout(new BoxLayout(risultatiPanel, BoxLayout.Y_AXIS));
 
         if (sessioni.isEmpty()) {
-            JLabel nessuno = new JLabel("Nessuna sessione trovata.");
-            nessuno.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-            nessuno.setAlignmentX(Component.LEFT_ALIGNMENT);
-            risultatiPanel.add(nessuno);
-        }
+            // ✅ Pannello centrato con messaggio
+            JPanel vuotoPanel = new JPanel(new GridBagLayout()); // GridBagLayout centra automaticamente
+            vuotoPanel.setBackground(Color.WHITE);
+            vuotoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        for (SessioneUI s : sessioni.values()) {
-            risultatiPanel.add(creaCard(s));
-            risultatiPanel.add(Box.createVerticalStrut(10));
-        }
+            JLabel icona = new JLabel("🔍");
+            icona.setFont(new Font("SansSerif", Font.PLAIN, 36));
 
-        // ✅ FIX: aggiunge spazio vuoto in fondo per non stirare l'ultima card
-        risultatiPanel.add(Box.createVerticalGlue());
+            JLabel messaggio = new JLabel("Nessuna sessione trovata per i filtri selezionati.");
+            messaggio.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            messaggio.setForeground(new Color(120, 120, 120));
+
+            JPanel contenuto = new JPanel();
+            contenuto.setLayout(new BoxLayout(contenuto, BoxLayout.Y_AXIS));
+            contenuto.setOpaque(false);
+            icona.setAlignmentX(Component.CENTER_ALIGNMENT);
+            messaggio.setAlignmentX(Component.CENTER_ALIGNMENT);
+            contenuto.add(icona);
+            contenuto.add(Box.createVerticalStrut(8));
+            contenuto.add(messaggio);
+
+            vuotoPanel.add(contenuto); // GridBagLayout lo centra in automatico
+
+            // Occupa tutto lo spazio disponibile
+            vuotoPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+            risultatiPanel.add(vuotoPanel);
+
+        } else {
+            for (SessioneUI s : sessioni.values()) {
+                risultatiPanel.add(creaCard(s));
+                risultatiPanel.add(Box.createVerticalStrut(10));
+            }
+            risultatiPanel.add(Box.createVerticalGlue());
+        }
 
         risultatiPanel.revalidate();
         risultatiPanel.repaint();
