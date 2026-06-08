@@ -99,22 +99,11 @@ public class formCercaSessioniConFiltro {
     private void $$$setupUI$$$() {
         panel = new JPanel();
         panel.setLayout(new GridLayoutManager(6, 2, new Insets(10, 10, 15, 15), -1, -1));
-        final JLabel label1 = new JLabel();
-        label1.setText("E-Mail Atleta");
-        panel.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel.add(spacer1, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        textEmail = new JTextField();
-        panel.add(textEmail, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        final JLabel label2 = new JLabel();
-        label2.setText("Disciplina");
-        panel.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 1, false));
-        textDisciplina = new JTextField();
-        textDisciplina.setText("");
-        panel.add(textDisciplina, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        final JLabel label3 = new JLabel();
-        label3.setText("Stato sessione");
-        panel.add(label3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("Stato sessione");
+        panel.add(label1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         boxStatoSessione = new JComboBox();
         final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
         defaultComboBoxModel1.addElement("-- Seleziona stato --");
@@ -122,20 +111,31 @@ public class formCercaSessioniConFiltro {
         defaultComboBoxModel1.addElement("Completata");
         defaultComboBoxModel1.addElement("In corso");
         boxStatoSessione.setModel(defaultComboBoxModel1);
-        panel.add(boxStatoSessione, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label4 = new JLabel();
-        label4.setText("Data");
-        label4.setVerticalAlignment(0);
-        panel.add(label4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel.add(boxStatoSessione, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
+        final JLabel label2 = new JLabel();
+        label2.setText("Data");
+        label2.setVerticalAlignment(0);
+        panel.add(label2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         textData = new JTextField();
-        panel.add(textData, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
-        caricaSessioniButton = new JButton();
-        caricaSessioniButton.setText("Carica sessioni");
-        panel.add(caricaSessioniButton, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel.add(textData, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
         panel.add(scrollPane1, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         table1 = new JTable();
         scrollPane1.setViewportView(table1);
+        caricaSessioniButton = new JButton();
+        caricaSessioniButton.setText("Carica sessioni");
+        panel.add(caricaSessioniButton, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), new Dimension(150, 30), 0, false));
+        final JLabel label3 = new JLabel();
+        label3.setText("E-Mail Atleta");
+        panel.add(label3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label4 = new JLabel();
+        label4.setText("Disciplina");
+        panel.add(label4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 1, false));
+        textDisciplina = new JTextField();
+        textDisciplina.setText("");
+        panel.add(textDisciplina, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
+        textEmail = new JTextField();
+        panel.add(textEmail, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
     }
 
     /**
@@ -144,4 +144,5 @@ public class formCercaSessioniConFiltro {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }
