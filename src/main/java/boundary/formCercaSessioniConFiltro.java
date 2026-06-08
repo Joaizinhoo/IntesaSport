@@ -3,10 +3,15 @@ package boundary;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import controller.IntesaSport;
 import entity.StatoSessione;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class formCercaSessioniConFiltro {
     private JTextField textEmail;
@@ -23,7 +28,36 @@ public class formCercaSessioniConFiltro {
             String statoString = (String) boxStatoSessione.getSelectedItem();
             String dataString = textData.getText();
 
+            if (email == null || email.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "Il campo E-Mail Atleta è obbligatorio per effettuare la ricerca!",
+                        "Errore Input",
+                        JOptionPane.WARNING_MESSAGE);
+                return; //fatto perché l'email non è opzionale!
+            }
 
+            List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, dataString, statoString, disciplina);
+
+            String[] colonne = {
+                    "ID",
+                    "Titolo",
+                    "Descrizione",
+                    "Data",
+                    "Durata prevista",
+                    "Stato sessione",
+                    "Descrizione esercizio",
+                    "Nome esercizio",
+                    "Durata esercizio",
+                    "Ripetizioni esercizio"
+            };
+
+            DefaultTableModel model = new DefaultTableModel(colonne, 0);
+
+            for (String[] riga : righeDati) {
+                model.addRow(riga);
+            }
+
+            table1.setModel(model);
         });
     }
 
@@ -62,6 +96,7 @@ public class formCercaSessioniConFiltro {
         panel1.add(label3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         boxStatoSessione = new JComboBox();
         final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+        defaultComboBoxModel1.addElement("-- Seleziona stato --");
         defaultComboBoxModel1.addElement("Assegnata");
         defaultComboBoxModel1.addElement("Completata");
         defaultComboBoxModel1.addElement("In corso");

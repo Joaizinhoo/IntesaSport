@@ -61,6 +61,7 @@
         </constraints>
         <properties>
           <model>
+            <item value="-- Seleziona stato --"/>
             <item value="Assegnata"/>
             <item value="Completata"/>
             <item value="In corso"/>

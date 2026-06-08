@@ -4,8 +4,8 @@ import database.GestorePersistenza;
 import jakarta.persistence.*;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,7 +16,7 @@ public class SessioneAllenamento {
 
     private String titolo;
     private String descrizione;
-    private Date date;
+    private LocalDate date;
     private Duration durataPrevista;
 
     @Enumerated(EnumType.STRING)
@@ -78,11 +78,11 @@ public class SessioneAllenamento {
         this.descrizione = descrizione;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

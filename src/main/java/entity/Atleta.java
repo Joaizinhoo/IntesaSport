@@ -1,9 +1,9 @@
 package entity;
 
-import com.mysql.cj.Session;
 import database.GestorePersistenza;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -43,7 +43,7 @@ public class Atleta extends Utente{
         this.obiettiviSportivi = obiettiviSportivi;
     }
 
-    public List<SessioneDTO> visualizzaSessioniAssegnate(Date data, StatoSessione stato, String disciplina){
+    public List<SessioneDTO> visualizzaSessioniAssegnate(LocalDate data, StatoSessione stato, String disciplina){
         GestorePersistenza gp = new GestorePersistenza();
 
         List<SessioneDTO> dtoList = new ArrayList<>();
@@ -74,21 +74,29 @@ public class Atleta extends Utente{
 
     }
 
-    public List<SessioneAllenamento> ordinaEFiltraSessioni(List<SessioneAllenamento> sessioniDaOrdinare, Date data, StatoSessione stato, String disciplina) {
+    public List<SessioneAllenamento> ordinaEFiltraSessioni(List<SessioneAllenamento> sessioniDaOrdinare, LocalDate data, StatoSessione stato, String disciplina) {
         List<SessioneAllenamento> sessioniFiltrate = new ArrayList<>();
 
         if (sessioniDaOrdinare == null) {
             return sessioniFiltrate;
         }
 
-        if (!this.disciplinaPraticata.equals(disciplina)) {
-            return sessioniFiltrate;
+        if (disciplina != null) {
+            if (!this.disciplinaPraticata.equalsIgnoreCase(disciplina.trim())) {
+                return sessioniFiltrate;
+            }
         }
 
         for (SessioneAllenamento s : sessioniDaOrdinare) {
-            if (s.getDate().equals(data) && s.getStatoSessione().equals(stato)) {
-                sessioniFiltrate.add(s);
+            if (data != null && !s.getDate().equals(data)) {
+                continue;
             }
+
+            if (stato != null && s.getStatoSessione() != stato) {
+                continue;
+            }
+
+            sessioniFiltrate.add(s);
         }
 
         sessioniFiltrate.sort(Comparator.comparing(SessioneAllenamento::getDate));
