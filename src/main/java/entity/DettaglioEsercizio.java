@@ -17,7 +17,7 @@ public class DettaglioEsercizio {
     @JoinColumn(name = "sessione_id")
     private SessioneAllenamento sessioneAllenamento;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "esercizio_id")
     private Esercizio esercizio;
 

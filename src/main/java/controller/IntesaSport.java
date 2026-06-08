@@ -58,11 +58,11 @@ public class IntesaSport {
                         sessione.getTitolo(),
                         sessione.getDescrizione(),
                         sessione.getData().toString(),
-                        sessione.getDurataPrevista().toString(),
+                        sessione.getDurataPrevista().toNanos() + " minuti",
                         sessione.getStatoSessione().toString(),
                         esercizio.getDescrizioneEx(),
                         esercizio.getNomeEx(),
-                        esercizio.getDurata().toString(),
+                        esercizio.getDurata().toNanos() + " minuti",
                         String.valueOf(esercizio.getRipetizioni())
                 };
 

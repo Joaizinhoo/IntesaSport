@@ -50,7 +50,7 @@ public class Atleta extends Utente{
 
         List<SessioneAllenamento> sessioniNonFiltrate =  gp.cercaPerCampo(
                 SessioneAllenamento.class,
-                "atleta_id",
+                "atleta.email",
                 this.getEmail()
         );
 
