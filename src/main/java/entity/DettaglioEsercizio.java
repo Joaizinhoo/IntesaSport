@@ -22,7 +22,7 @@ public class DettaglioEsercizio {
     @JoinColumn(name = "esercizio_id")
     private Esercizio esercizio;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "prestazione_id")
     private Prestazione prestazione;
 
@@ -35,10 +35,11 @@ public class DettaglioEsercizio {
         this.ripetizioni = ripetizioni;
     }
 
-    public boolean creaPrestazione(int ripEff, Duration durataEff, String note){
+    public boolean creaPrestazione(Integer ripEff, Duration durataEff, String note){
         GestorePersistenza gp = new GestorePersistenza();
-            Prestazione prestazione = new Prestazione(durataEff, note, ripEff);
 
+        if (this.getPrestazione() == null){
+            Prestazione prestazione = new Prestazione(durataEff, note, ripEff);
             boolean successo = gp.salva(prestazione);
             if(successo) {
                 this.setPrestazione(prestazione);
@@ -48,6 +49,26 @@ public class DettaglioEsercizio {
             else{
                 return false;
             }
+        }
+
+
+        Prestazione prestazioneEsistente = this.getPrestazione();
+
+        if (ripEff != null) {
+            prestazioneEsistente.setEffettiveRipetizioni(ripEff);
+        }
+
+        if (durataEff != null) {
+            prestazioneEsistente.setTempoImpiegato(durataEff);
+        }
+
+        if (note != null && !note.trim().isEmpty()) {
+            prestazioneEsistente.setNote(note);
+        }
+
+        gp.aggiorna(prestazioneEsistente);
+
+        return true;
     }
 
     public Duration getDurata() {
@@ -88,6 +109,10 @@ public class DettaglioEsercizio {
 
     public void setEsercizio(Esercizio esercizio) {
         this.esercizio = esercizio;
+    }
+
+    public Prestazione getPrestazione() {
+        return prestazione;
     }
 
     public void setPrestazione(Prestazione prestazione) {

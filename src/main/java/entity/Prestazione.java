@@ -10,14 +10,19 @@ public class Prestazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int effettiveRipetizioni;
+    @Column(name = "effettiveRipetizioni", nullable = true)
+    private Integer effettiveRipetizioni;
+
+    @Column(name = "note", nullable = true)
     private String note;
+
+    @Column(name = "tempoImpiegato", nullable = true)
     private Duration tempoImpiegato;
 
     public Prestazione() {
     }
 
-    public Prestazione(Duration tempoImpiegato, String note, int effettiveRipetizioni) {
+    public Prestazione(Duration tempoImpiegato, String note, Integer effettiveRipetizioni) {
         this.tempoImpiegato = tempoImpiegato;
         this.note = note;
         this.effettiveRipetizioni = effettiveRipetizioni;

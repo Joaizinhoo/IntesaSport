@@ -75,7 +75,7 @@ public class IntesaSport {
         return righeTabella;
     }
 
-    public static boolean registraRisultatiEsercizio(Long idDettaglioEx, int ripEff, Duration durataEff, String note){
+    public static boolean registraRisultatiEsercizio(Long idDettaglioEx, Integer ripEff, Duration durataEff, String note){
 
         GestoreEsercizi gEx = new GestoreEsercizi();
         DettaglioEsercizio dettEx = gEx.trovaDettaglioExPerId(idDettaglioEx);

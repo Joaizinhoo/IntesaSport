@@ -135,9 +135,9 @@ public class formRegistraPrestazioni {
             if (!note.isEmpty()) campicompilati++;
             if (!tempo.isEmpty()) campicompilati++;
 
-            if(campicompilati<2){
+            if(campicompilati<1){
                 JOptionPane.showMessageDialog(null,
-                        "Per registrare la prestazione devi compilare almeno DUE campi a scelta tra:\n" + "- Ripetizioni\n- Note\n- Tempo impiegato", "Compilazione Insufficiente",
+                        "Per registrare la prestazione devi compilare almeno un campo a scelta tra:\n" + "- Ripetizioni\n- Note\n- Tempo impiegato", "Compilazione Insufficiente",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
