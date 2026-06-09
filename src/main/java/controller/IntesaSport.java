@@ -61,6 +61,7 @@ public class IntesaSport {
                         sessione.getData().toString(),
                         sessione.getDurataPrevista().toNanos() + " minuti",
                         sessione.getStatoSessione().toString(),
+                        esercizio.getId().toString(),
                         esercizio.getDescrizioneEx(),
                         esercizio.getNomeEx(),
                         esercizio.getDurata().toNanos() + " minuti",

@@ -45,7 +45,8 @@ public class SessioneAllenamento {
                     dettaglio.getRipetizioni(),
                     dettaglio.getDurata(),
                     esercizio.getNome(),
-                    esercizio.getDescrizione()
+                    esercizio.getDescrizione(),
+                    dettaglio.getId()
             );
 
             dtoList.add(dto);

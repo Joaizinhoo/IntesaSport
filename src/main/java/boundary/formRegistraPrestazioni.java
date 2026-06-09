@@ -1,0 +1,214 @@
+package boundary;
+
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
+import controller.IntesaSport;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import java.awt.*;
+
+public class formRegistraPrestazioni {
+    private JTextField textEmail;
+    private JTextField textDisciplina;
+    private JComboBox boxStatoSessione;
+    private JTextField textData;
+    private JButton caricaSessioniButton;
+    private JTable table1;
+    private JPanel panel;
+    private JTextField textIdDettaglio;
+    private JPanel panelModifica;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+
+    public formRegistraPrestazioni() {
+
+        caricaSessioniButton.addActionListener(e -> {
+            String email = textEmail.getText();
+            String disciplina = textDisciplina.getText();
+            String statoString = (String) boxStatoSessione.getSelectedItem();
+            String dataString = textData.getText();
+
+            if (email == null || email.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "Il campo E-Mail Atleta è obbligatorio per effettuare la ricerca!",
+                        "Errore Input",
+                        JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, dataString, statoString, disciplina);
+
+            String[] colonne = {
+                    "ID", "Titolo", "Descrizione", "Data", "Durata prevista",
+                    "Stato sessione", "Id dettaglio esercizio", "Descrizione esercizio", "Nome esercizio",
+                    "Durata esercizio", "Ripetizioni esercizio"
+            };
+
+            DefaultTableModel model = new DefaultTableModel(colonne, 0);
+
+            // Stringa per tenere traccia dell'ID della sessione precedente nel ciclo
+            String ultimoIdSessione = "";
+
+            for (String[] riga : righeDati) {
+                // Facciamo una copia della riga originale per non modificarla direttamente nella sorgente
+                String[] rigaCopia = new String[riga.length];
+                System.arraycopy(riga, 0, rigaCopia, 0, riga.length);
+
+                String attualeIdSessione = rigaCopia[0]; // L'ID si trova all'indice 0
+
+                // TRUCCO: Se l'ID è identico a quello della riga prima, svuotiamo i dati ripetitivi della sessione
+                if (attualeIdSessione != null && attualeIdSessione.equals(ultimoIdSessione)) {
+                    rigaCopia[0] = ""; // Svuota ID
+                    rigaCopia[1] = ""; // Svuota Titolo
+                    rigaCopia[2] = ""; // Svuota Descrizione Sessione
+                    rigaCopia[3] = ""; // Svuota Data
+                    rigaCopia[4] = ""; // Svuota Durata prevista
+                    rigaCopia[5] = ""; // Svuota Stato sessione
+                } else {
+                    // Aggiorniamo l'ultimo ID visto solo se è una nuova sessione
+                    ultimoIdSessione = attualeIdSessione;
+                }
+
+                // Aggiunge la riga "pulita" al modello della tabella
+                model.addRow(rigaCopia);
+            }
+
+            table1.setModel(model);
+        });
+
+        table1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int rigaSelezionata = table1.getSelectedRow();
+
+                    if (rigaSelezionata != -1) {
+
+                        Object idDettaglioObj = table1.getValueAt(rigaSelezionata, 6);
+
+                        if (idDettaglioObj != null && !idDettaglioObj.toString().trim().isEmpty()) {
+                            String idDettaglioScelto = idDettaglioObj.toString();
+
+                            textIdDettaglio.setText(idDettaglioScelto);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    public static void main(String[] args) {
+        // Crea un container standard di Windows/Mac per ospitare il tuo form
+        JFrame frame = new JFrame("Test Filtro Sessioni - IntesaSport");
+
+        // Dice a Java di mostrare l'interfaccia che hai disegnato
+        frame.setContentPane(new formRegistraPrestazioni().panel); // <-- Sostituisci 'panel1' con il nome del tuo pannello principale
+
+        // Imposta la chiusura del programma quando clicchi sulla "X" della finestra
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Adatta la dimensione della finestra in base ai componenti interni
+        frame.pack();
+
+        // Centra la finestra sullo schermo
+        frame.setLocationRelativeTo(null);
+
+        // Rende il form visibile
+        frame.setVisible(true);
+    }
+
+    {
+// GUI initializer generated by IntelliJ IDEA GUI Designer
+// >>> IMPORTANT!! <<<
+// DO NOT EDIT OR ADD ANY CODE HERE!
+        $$$setupUI$$$();
+    }
+
+    /**
+     * Method generated by IntelliJ IDEA GUI Designer
+     * >>> IMPORTANT!! <<<
+     * DO NOT edit this method OR call it in your code!
+     *
+     * @noinspection ALL
+     */
+    private void $$$setupUI$$$() {
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel = new JPanel();
+        panel.setLayout(new GridLayoutManager(6, 3, new Insets(10, 10, 15, 15), -1, -1));
+        panel1.add(panel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        panel.add(spacer1, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("Stato sessione");
+        panel.add(label1, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        boxStatoSessione = new JComboBox();
+        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+        defaultComboBoxModel1.addElement("-- Seleziona stato --");
+        defaultComboBoxModel1.addElement("Assegnata");
+        defaultComboBoxModel1.addElement("Completata");
+        defaultComboBoxModel1.addElement("In corso");
+        boxStatoSessione.setModel(defaultComboBoxModel1);
+        panel.add(boxStatoSessione, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
+        final JLabel label2 = new JLabel();
+        label2.setText("Data");
+        label2.setVerticalAlignment(0);
+        panel.add(label2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textData = new JTextField();
+        panel.add(textData, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
+        final JScrollPane scrollPane1 = new JScrollPane();
+        panel.add(scrollPane1, new GridConstraints(4, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 100), new Dimension(-1, 100), 0, false));
+        table1 = new JTable();
+        scrollPane1.setViewportView(table1);
+        final JLabel label3 = new JLabel();
+        label3.setText("E-Mail Atleta");
+        panel.add(label3, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label4 = new JLabel();
+        label4.setText("Disciplina");
+        panel.add(label4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 1, false));
+        textDisciplina = new JTextField();
+        textDisciplina.setText("");
+        panel.add(textDisciplina, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
+        textEmail = new JTextField();
+        panel.add(textEmail, new GridConstraints(0, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
+        textIdDettaglio = new JTextField();
+        textIdDettaglio.setEditable(false);
+        textIdDettaglio.setInheritsPopupMenu(false);
+        textIdDettaglio.setSelectionColor(new Color(-14007439));
+        textIdDettaglio.setText("");
+        panel.add(textIdDettaglio, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(25, -1), new Dimension(25, -1), new Dimension(25, -1), 0, false));
+        final JLabel label5 = new JLabel();
+        label5.setText("ID dettaglio ex. scelto:");
+        panel.add(label5, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        caricaSessioniButton = new JButton();
+        caricaSessioniButton.setText("Carica sessioni");
+        panel.add(caricaSessioniButton, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), new Dimension(150, 30), 0, false));
+        panelModifica = new JPanel();
+        panelModifica.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel.add(panelModifica, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final JLabel label6 = new JLabel();
+        label6.setText("Note");
+        panelModifica.add(label6, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JLabel label7 = new JLabel();
+        label7.setText("Tempo impiegato");
+        panelModifica.add(label7, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textField2 = new JTextField();
+        panelModifica.add(textField2, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        textField3 = new JTextField();
+        panelModifica.add(textField3, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        textField1 = new JTextField();
+        panelModifica.add(textField1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        final JLabel label8 = new JLabel();
+        label8.setText("Ripetizioni");
+        panelModifica.add(label8, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_EAST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    }
+
+}
+
