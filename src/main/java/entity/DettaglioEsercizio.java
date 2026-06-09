@@ -1,5 +1,6 @@
 package entity;
 
+import database.GestorePersistenza;
 import jakarta.persistence.*;
 
 import java.time.Duration;
@@ -32,6 +33,21 @@ public class DettaglioEsercizio {
         this.esercizio = esercizio;
         this.durata = durata;
         this.ripetizioni = ripetizioni;
+    }
+
+    public boolean creaPrestazione(int ripEff, Duration durataEff, String note){
+        GestorePersistenza gp = new GestorePersistenza();
+            Prestazione prestazione = new Prestazione(durataEff, note, ripEff);
+
+            boolean successo = gp.salva(prestazione);
+            if(successo) {
+                this.setPrestazione(prestazione);
+                gp.aggiorna(this);
+                return true;
+            }
+            else{
+                return false;
+            }
     }
 
     public Duration getDurata() {
@@ -72,6 +88,10 @@ public class DettaglioEsercizio {
 
     public void setEsercizio(Esercizio esercizio) {
         this.esercizio = esercizio;
+    }
+
+    public void setPrestazione(Prestazione prestazione) {
+        this.prestazione = prestazione;
     }
 
     @Override
