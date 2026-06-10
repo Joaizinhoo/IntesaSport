@@ -1,5 +1,7 @@
 package boundary;
 
+import controller.IntesaSport;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
@@ -10,7 +12,10 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
-public class FormCreaEsercizio {
+
+//Cercando su google ho aggiunto "extends javax.swing.JFrame" per poter chiudere la finestra del form una volta che l'esercizio è creato con successo
+
+public class FormCreaEsercizio extends javax.swing.JFrame {
 
     private JPanel contentPane;
     private JTextField txtNome;
@@ -27,20 +32,45 @@ public class FormCreaEsercizio {
                 String nomeEsercizio = txtNome.getText().trim();
                 String descrizione = txtDescrizione.getText().trim();
 
+                //Controllo che entrambi i campi siano pieni
+
                 if(nomeEsercizio.isEmpty() || descrizione.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             FormCreaEsercizio.this,
-                            "Errore: è necessario inserire tutti i campi!",
+                            "Errore: è necessario compilare tutti i campi!",
                             "Errore",
                             JOptionPane.ERROR_MESSAGE
                     );
                     return;
-                    )
-
-                    boolean salvataggioEsercizio =
                 }
 
+                //Se l'esercizio è già presente nel database il boolean sarà falso
 
+                boolean salvataggioEsercizio = IntesaSport.creaEsercizio(nomeEsercizio, descrizione);
+
+                if (!salvataggioEsercizio) {
+                    JOptionPane.showMessageDialog(
+                            FormCreaEsercizio.this,
+                            "Errore: Un esercizio con questo NOME è già presente!",
+                            "Esercizio già presente",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+
+                if(salvataggioEsercizio){
+                    JOptionPane.showMessageDialog(
+                            FormCreaEsercizio.this,
+                            "Esercizio creato con successo",
+                            "Esercizio Creato",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+
+                    //Voglio che la finestra si chiuda automaticamente
+                    //dopo aver creato con successo un esercizio
+                    // e aver dato l'OK sulla finestra
+                    FormCreaEsercizio.this.dispose();
+                }
 
             }
         });

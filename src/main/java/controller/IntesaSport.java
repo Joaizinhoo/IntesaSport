@@ -88,6 +88,13 @@ public class IntesaSport {
 
     }
 
-    public static boolean creaEsercizio ()
+    public static boolean creaEsercizio (String nome, String descrizione){
+
+        GestoreEsercizi ges = new GestoreEsercizi();
+        return ges.creaNuovoEsercizio(nome, descrizione);
+
+    }
+
+
 
 }
