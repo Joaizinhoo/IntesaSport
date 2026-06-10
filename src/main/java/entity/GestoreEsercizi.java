@@ -1,5 +1,5 @@
 package entity;
-import java.util.Map;
+import java.util.*;
 
 import database.GestorePersistenza;
 
@@ -28,8 +28,8 @@ public class GestoreEsercizi {
     }
 
     public boolean creaNuovoEsercizio(String nome, String descrizione) {
-        Esercizio esistente = esisteEsercizio(nome);
-        if (esistente != null) {
+        boolean esistente = esisteEsercizio(nome);
+        if (esistente) {
             return false;
         }
         //Creo istanza nuovo esercizio se non è già presente un ese con quel nome
@@ -38,6 +38,12 @@ public class GestoreEsercizi {
 
         //true se creato false se non creato
         return gp.salva(nuovoEsercizio);
+    }
+
+    public List<Esercizio> visualizzaListaEsercizi() {
+        GestorePersistenza gp = new GestorePersistenza();
+        List<Esercizio> listaEsercizi = gp.cercaPerCampi(Esercizio.class, new java.util.HashMap<>());
+        listaEsercizi.Collections.sort(listaEsercizi);
     }
 
 

@@ -6,7 +6,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class FormAggiungiEsercizio {
+public class FormAggiungiEsercizioAllaSessione {
 
     private JList listEserciziDatabase;
     private JButton creaNuovoEsercizioButton;

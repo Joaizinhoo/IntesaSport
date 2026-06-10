@@ -15,7 +15,7 @@ import com.intellij.uiDesigner.core.Spacer;
 
 //Cercando su google ho aggiunto "extends javax.swing.JFrame" per poter chiudere la finestra del form una volta che l'esercizio è creato con successo
 
-public class FormCreaEsercizio extends javax.swing.JFrame {
+public class FormCreaEsercizio extends JFrame {
 
     private JPanel contentPane;
     private JTextField txtNome;
@@ -26,6 +26,10 @@ public class FormCreaEsercizio extends javax.swing.JFrame {
     private JTextArea txtDescrizione;
 
     public FormCreaEsercizio() {
+
+        this.setContentPane(contentPane);
+        this.pack();
+
         salvaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,12 +38,12 @@ public class FormCreaEsercizio extends javax.swing.JFrame {
 
                 //Controllo che entrambi i campi siano pieni
 
-                if(nomeEsercizio.isEmpty() || descrizione.isEmpty()) {
+                if (nomeEsercizio.isEmpty() || descrizione.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             FormCreaEsercizio.this,
                             "Errore: è necessario compilare tutti i campi!",
                             "Errore",
-                            JOptionPane.ERROR_MESSAGE
+                            JOptionPane.INFORMATION_MESSAGE
                     );
                     return;
                 }
@@ -53,12 +57,12 @@ public class FormCreaEsercizio extends javax.swing.JFrame {
                             FormCreaEsercizio.this,
                             "Errore: Un esercizio con questo NOME è già presente!",
                             "Esercizio già presente",
-                            JOptionPane.ERROR_MESSAGE
+                            JOptionPane.INFORMATION_MESSAGE
                     );
                     return;
                 }
 
-                if(salvataggioEsercizio){
+                if (salvataggioEsercizio) {
                     JOptionPane.showMessageDialog(
                             FormCreaEsercizio.this,
                             "Esercizio creato con successo",
@@ -92,49 +96,42 @@ public class FormCreaEsercizio extends javax.swing.JFrame {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(12, 6, new Insets(0, 0, 0, 0), -1, -1));
-        contentPane.setMaximumSize(new Dimension(350, 250));
-        contentPane.setMinimumSize(new Dimension(350, 250));
-        contentPane.setPreferredSize(new Dimension(350, 250));
+        contentPane.setLayout(new GridLayoutManager(12, 4, new Insets(0, 0, 0, 0), -1, -1));
+        contentPane.setMaximumSize(new Dimension(280, 250));
+        contentPane.setMinimumSize(new Dimension(280, 250));
+        contentPane.setPreferredSize(new Dimension(280, 250));
         contentPane.setVisible(true);
         contentPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
         LabelIntro = new JLabel();
         LabelIntro.setText("Inserisci i dati del nuovo esercizio da creare");
-        contentPane.add(LabelIntro, new GridConstraints(1, 2, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(LabelIntro, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         LabelName = new JLabel();
         LabelName.setText("Nome");
-        contentPane.add(LabelName, new GridConstraints(3, 2, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(LabelName, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         LabelDescrizione = new JLabel();
         LabelDescrizione.setText("Descrizione");
-        contentPane.add(LabelDescrizione, new GridConstraints(6, 2, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(LabelDescrizione, new GridConstraints(6, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         txtNome = new JTextField();
         txtNome.setHorizontalAlignment(0);
-        contentPane.add(txtNome, new GridConstraints(4, 1, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(250, -1), new Dimension(250, -1), new Dimension(250, -1), 0, false));
+        contentPane.add(txtNome, new GridConstraints(4, 0, 1, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(280, -1), new Dimension(280, -1), new Dimension(280, -1), 0, false));
         salvaButton = new JButton();
         salvaButton.setText("Salva");
-        contentPane.add(salvaButton, new GridConstraints(10, 2, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        contentPane.add(salvaButton, new GridConstraints(10, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
-        contentPane.add(spacer1, new GridConstraints(10, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        contentPane.add(spacer1, new GridConstraints(9, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
         final Spacer spacer2 = new Spacer();
-        contentPane.add(spacer2, new GridConstraints(10, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        contentPane.add(spacer2, new GridConstraints(11, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
         final Spacer spacer3 = new Spacer();
-        contentPane.add(spacer3, new GridConstraints(8, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        contentPane.add(spacer3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
         final Spacer spacer4 = new Spacer();
-        contentPane.add(spacer4, new GridConstraints(8, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        contentPane.add(spacer4, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
         final Spacer spacer5 = new Spacer();
-        contentPane.add(spacer5, new GridConstraints(9, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
-        final Spacer spacer6 = new Spacer();
-        contentPane.add(spacer6, new GridConstraints(11, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
-        final Spacer spacer7 = new Spacer();
-        contentPane.add(spacer7, new GridConstraints(0, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
-        final Spacer spacer8 = new Spacer();
-        contentPane.add(spacer8, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
-        final Spacer spacer9 = new Spacer();
-        contentPane.add(spacer9, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
+        contentPane.add(spacer5, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, 1, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 10), null, 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
-        contentPane.add(scrollPane1, new GridConstraints(7, 2, 2, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        contentPane.add(scrollPane1, new GridConstraints(7, 0, 2, 4, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         txtDescrizione = new JTextArea();
         txtDescrizione.setLineWrap(true);
+        txtDescrizione.setMaximumSize(new Dimension(250, 250));
         txtDescrizione.setRows(4);
         txtDescrizione.setText("");
         txtDescrizione.setWrapStyleWord(true);
@@ -147,5 +144,21 @@ public class FormCreaEsercizio extends javax.swing.JFrame {
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
     }
+
+    /* //MAIN PER PROVARE LA CLASSE ____________________________________________________________________________
+
+    public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                FormCreaEsercizio form = new FormCreaEsercizio();
+                form.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+                form.setMinimumSize(new java.awt.Dimension(350, 250));
+                form.setLocationRelativeTo(null);
+                form.setVisible(true);
+            }
+        });
+    }
+    _________________________________________________________________________________________________________ */
 
 }

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 
-public class Esercizio {
+public class Esercizio implements Comparable<Esercizio> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,4 +72,10 @@ public class Esercizio {
                 ", descrizione='" + descrizione + '\'' +
                 '}';
     }
+
+    @Override
+    public int compareTo (Esercizio e) {
+        return this.nome.compareToIgnoreCase(e.getNome());
+    }
+
 }
