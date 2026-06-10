@@ -88,4 +88,6 @@ public class IntesaSport {
 
     }
 
+    public static boolean creaEsercizio ()
+
 }

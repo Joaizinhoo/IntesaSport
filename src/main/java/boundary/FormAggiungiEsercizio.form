@@ -55,7 +55,7 @@
           <text value="Ripetizioni"/>
         </properties>
       </component>
-      <component id="67109" class="javax.swing.JSpinner" binding="spinner1" custom-create="true" default-binding="true">
+      <component id="67109" class="javax.swing.JSpinner" binding="repetitionSpinner" custom-create="true">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -69,7 +69,7 @@
           <text value="Durata in minuti"/>
         </properties>
       </component>
-      <component id="6c5b2" class="javax.swing.JSpinner" binding="spinner2" custom-create="true" default-binding="true">
+      <component id="6c5b2" class="javax.swing.JSpinner" binding="durationSpinner" custom-create="true">
         <constraints>
           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>

@@ -10,8 +10,8 @@ public class FormAggiungiEsercizio {
 
     private JList listEserciziDatabase;
     private JButton creaNuovoEsercizioButton;
-    private JSpinner spinner1;
-    private JSpinner spinner2;
+    private JSpinner repetitionSpinner;
+    private JSpinner durationSpinner;
     private JButton aggiungiEsercizioAllaSessioneButton;
 
     {
@@ -49,11 +49,11 @@ public class FormAggiungiEsercizio {
         final JLabel label3 = new JLabel();
         label3.setText("Ripetizioni");
         panel1.add(label3, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        panel1.add(spinner1, new GridConstraints(4, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(repetitionSpinner, new GridConstraints(4, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label4 = new JLabel();
         label4.setText("Durata in minuti");
         panel1.add(label4, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        panel1.add(spinner2, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(durationSpinner, new GridConstraints(5, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JSeparator separator1 = new JSeparator();
         panel1.add(separator1, new GridConstraints(3, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final JSeparator separator2 = new JSeparator();
@@ -66,8 +66,8 @@ public class FormAggiungiEsercizio {
     private void createUIComponents() {
         // TODO: place custom component creation code here
         SpinnerModel spinnerRipetizioni = new SpinnerNumberModel(1, 1, 5000, 1);
-        spinner1 = new JSpinner(spinnerRipetizioni);
+        repetitionSpinner = new JSpinner(spinnerRipetizioni);
         SpinnerModel spinnerDurata = new SpinnerNumberModel(0, 0, 240, 1);
-        spinner2 = new JSpinner(spinnerDurata);
+        durationSpinner = new JSpinner(spinnerDurata);
     }
 }

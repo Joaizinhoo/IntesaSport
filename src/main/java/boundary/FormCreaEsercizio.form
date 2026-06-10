@@ -37,7 +37,7 @@
           <text value="Descrizione"/>
         </properties>
       </component>
-      <component id="bc5b8" class="javax.swing.JTextField" binding="TFNome">
+      <component id="bc5b8" class="javax.swing.JTextField" binding="txtNome">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <minimum-size width="250" height="-1"/>
@@ -51,18 +51,10 @@
       </component>
       <component id="df1e0" class="javax.swing.JButton" binding="salvaButton" default-binding="true">
         <constraints>
-          <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="10" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Salva"/>
-        </properties>
-      </component>
-      <component id="fb9ee" class="javax.swing.JButton" binding="annullaButton" default-binding="true">
-        <constraints>
-          <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Annulla"/>
         </properties>
       </component>
       <hspacer id="1b9f3">
@@ -127,7 +119,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="ffd56" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+          <component id="ffd56" class="javax.swing.JTextArea" binding="txtDescrizione">
             <constraints/>
             <properties>
               <lineWrap value="true"/>
