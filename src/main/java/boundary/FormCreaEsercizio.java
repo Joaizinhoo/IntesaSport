@@ -91,6 +91,24 @@ public class FormCreaEsercizio extends javax.swing.JDialog {
 
             }
         });
+
+
+    }
+
+    public JFrame apriFormCreaEsercizio() {
+
+        JFrame frame = new JFrame("Crea esercizio");
+
+        frame.setContentPane(contentPane);
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setResizable(false);
+
+        return frame;
     }
 
     {

@@ -19,6 +19,7 @@ public class FormIntesaSport {
     private JFrame cercaSessioniFrame;
     private JFrame registraPrestazioniFrame;
     private JFrame creaSessioniFrame;
+    private JFrame creaEsercizioFrame;
 
     public FormIntesaSport() {
         cercaSessioniButton.addActionListener(new ActionListener() {
@@ -92,8 +93,34 @@ public class FormIntesaSport {
 
                 } else {
 
-                    registraPrestazioniFrame.toFront();
-                    registraPrestazioniFrame.requestFocus();
+                    creaSessioniFrame.toFront();
+                    creaSessioniFrame.requestFocus();
+
+                }
+            }
+        });
+
+        creaEsercizioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (creaEsercizioFrame == null || !creaEsercizioFrame.isDisplayable()) {
+
+
+                    FormCreaEsercizio formCreaEx = new FormCreaEsercizio();
+
+
+                    creaEsercizioFrame = formCreaEx.apriFormCreaEsercizio();
+
+                    creaEsercizioFrame.setLocationRelativeTo(null);
+
+                    creaEsercizioFrame.setVisible(true);
+
+
+                } else {
+
+                    creaEsercizioFrame.toFront();
+                    creaEsercizioFrame.requestFocus();
 
                 }
             }
