@@ -14,7 +14,6 @@ public class FormIntesaSport {
     private JButton cercaSessioniButton;
     private JButton creaSessioneButton;
     private JButton registraPrestazioniButton;
-    private JButton creaEsercizioButton;
 
     private JFrame cercaSessioniFrame;
     private JFrame registraPrestazioniFrame;
@@ -99,32 +98,6 @@ public class FormIntesaSport {
                 }
             }
         });
-
-        creaEsercizioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                if (creaEsercizioFrame == null || !creaEsercizioFrame.isDisplayable()) {
-
-
-                    FormCreaEsercizio formCreaEx = new FormCreaEsercizio();
-
-
-                    creaEsercizioFrame = formCreaEx.apriFormCreaEsercizio();
-
-                    creaEsercizioFrame.setLocationRelativeTo(null);
-
-                    creaEsercizioFrame.setVisible(true);
-
-
-                } else {
-
-                    creaEsercizioFrame.toFront();
-                    creaEsercizioFrame.requestFocus();
-
-                }
-            }
-        });
     }
 
     public static void main(String[] args) {
@@ -161,7 +134,7 @@ public class FormIntesaSport {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(3, 9, new Insets(0, 0, 0, 0), -1, -1));
+        contentPane.setLayout(new GridLayoutManager(3, 7, new Insets(0, 0, 0, 0), -1, -1));
         contentPane.setMaximumSize(new Dimension(600, 300));
         contentPane.setMinimumSize(new Dimension(600, 300));
         contentPane.setPreferredSize(new Dimension(600, 200));
@@ -170,27 +143,22 @@ public class FormIntesaSport {
         contentPane.add(cercaSessioniButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
         creaSessioneButton = new JButton();
         creaSessioneButton.setText("Crea sessione");
-        contentPane.add(creaSessioneButton, new GridConstraints(1, 7, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
+        contentPane.add(creaSessioneButton, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
         registraPrestazioniButton = new JButton();
         registraPrestazioniButton.setText("Registra prestazioni");
         contentPane.add(registraPrestazioniButton, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
         final Spacer spacer1 = new Spacer();
-        contentPane.add(spacer1, new GridConstraints(1, 8, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(20, -1), null, 0, false));
+        contentPane.add(spacer1, new GridConstraints(1, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(20, -1), null, 0, false));
         final Spacer spacer2 = new Spacer();
         contentPane.add(spacer2, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(20, -1), null, 0, false));
         final Spacer spacer3 = new Spacer();
-        contentPane.add(spacer3, new GridConstraints(1, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(20, -1), null, 0, false));
+        contentPane.add(spacer3, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(20, -1), null, 0, false));
         final Spacer spacer4 = new Spacer();
         contentPane.add(spacer4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(20, -1), null, 0, false));
         final Spacer spacer5 = new Spacer();
         contentPane.add(spacer5, new GridConstraints(2, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final Spacer spacer6 = new Spacer();
         contentPane.add(spacer6, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        creaEsercizioButton = new JButton();
-        creaEsercizioButton.setText("Crea esercizio");
-        contentPane.add(creaEsercizioButton, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
-        final Spacer spacer7 = new Spacer();
-        contentPane.add(spacer7, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
     }
 
     /**

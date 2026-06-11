@@ -13,9 +13,9 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 
-//Cercando su google ho aggiunto "extends javax.swing.JFrame" per poter avere un pop-up dalla schermata precedente
+//Cercando su google ho aggiunto "extends JDialog" per poter avere un pop-up dalla schermata precedente
 
-public class FormCreaEsercizio extends javax.swing.JDialog {
+public class FormCreaEsercizio extends JDialog {
 
     private JPanel contentPane;
     private JTextField txtNome;

@@ -110,9 +110,13 @@ public class IntesaSport {
         return gu.visualizzaAtletiAssociati("mario.rossi@sport.it");
     }
 
-    public static boolean creaNuovaSessione(Atleta atleta, LocalDate data, int durata, String descrizione, List<Object[]> dettagliScelti) {
+    public static boolean creaNuovaSessione(String titolo, Atleta atleta, LocalDate data, int durata, String descrizione, List<Object[]> dettagliScelti) {
 
-        // controlli sui dari
+        // controlli sui dati
+        if(titolo.isEmpty()){
+            return false;
+        }
+
         if (atleta == null) {
             return false;
         }
@@ -134,6 +138,7 @@ public class IntesaSport {
 
         // Assegno i valori alla sessione allenamento
         SessioneAllenamento nuovaSessione = new SessioneAllenamento();
+        nuovaSessione.setTitolo(titolo);
         nuovaSessione.setAtleta(atleta);
         nuovaSessione.setAllenatore(allenatoreLoggato);
         nuovaSessione.setDate(data);
