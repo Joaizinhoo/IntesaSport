@@ -91,7 +91,6 @@ public class formCercaSessioniConFiltro {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.setResizable(false);
 
         return frame;
     }
