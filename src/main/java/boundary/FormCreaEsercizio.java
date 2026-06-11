@@ -163,7 +163,7 @@ public class FormCreaEsercizio extends javax.swing.JDialog {
         return this.nomeEsercizioCreato;
     }
 
-    /* //MAIN PER PROVARE LA CLASSE ____________________________________________________________________________
+     /* //MAIN PER PROVARE LA CLASSE ____________________________________________________________________________
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -176,7 +176,10 @@ public class FormCreaEsercizio extends javax.swing.JDialog {
                 form.setVisible(true);
             }
         });
+
+
     }
-    _________________________________________________________________________________________________________ */
+
+    */
 
 }

@@ -27,6 +27,7 @@ public class formRegistraPrestazioni {
     private JTextField textNote;
     private JTextField textTempoImpiegato;
     private JButton buttonRegPres;
+    private JPanel panelMain;
 
     public formRegistraPrestazioni() {
         panelModifica.setVisible(false);
@@ -119,7 +120,7 @@ public class formRegistraPrestazioni {
             String note = textNote.getText().trim();
             String tempo = textTempoImpiegato.getText().trim();
 
-            System.out.println("ID DETTAGLIO: " +idDettaglio);
+            System.out.println("ID DETTAGLIO: " + idDettaglio);
 
             if (idDettaglio.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
@@ -135,7 +136,7 @@ public class formRegistraPrestazioni {
             if (!note.isEmpty()) campicompilati++;
             if (!tempo.isEmpty()) campicompilati++;
 
-            if(campicompilati<1){
+            if (campicompilati < 1) {
                 JOptionPane.showMessageDialog(null,
                         "Per registrare la prestazione devi compilare almeno un campo a scelta tra:\n" + "- Ripetizioni\n- Note\n- Tempo impiegato", "Compilazione Insufficiente",
                         JOptionPane.ERROR_MESSAGE);
@@ -164,19 +165,34 @@ public class formRegistraPrestazioni {
 
             boolean successo = IntesaSport.registraRisultatiEsercizio(Long.parseLong(idDettaglio), ripetizioniInt, tempoDuration, note);
 
-            if(successo) {
+            if (successo) {
                 JOptionPane.showMessageDialog(null,
                         "Registrazione avvenuta con successo", "Successo",
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null,
                         "Errore nella registrazione delle prestazioni", "Errore",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
         });
+    }
+
+    public JFrame apriFormRegistraPrestazioni() {
+
+        JFrame frame = new JFrame("Registra prestazioni");
+
+        frame.setContentPane(panelMain);
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //questo fa si che si chiuda solo il frame e non l'intera app a differenza di EXIT_ON_CLOSE
+
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+        frame.setResizable(false);
+
+        return frame;
     }
 
 
@@ -215,11 +231,11 @@ public class formRegistraPrestazioni {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panelMain = new JPanel();
+        panelMain.setLayout(new GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel = new JPanel();
         panel.setLayout(new GridLayoutManager(6, 3, new Insets(10, 10, 15, 15), -1, -1));
-        panel1.add(panel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panelMain.add(panel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final Spacer spacer1 = new Spacer();
         panel.add(spacer1, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         final JLabel label1 = new JLabel();
@@ -287,6 +303,13 @@ public class formRegistraPrestazioni {
         buttonRegPres = new JButton();
         buttonRegPres.setText("Registra prestazioni");
         panelModifica.add(buttonRegPres, new GridConstraints(3, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(160, -1), new Dimension(160, -1), 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    public JComponent $$$getRootComponent$$$() {
+        return panelMain;
     }
 
 }
