@@ -118,7 +118,7 @@
           <component id="df361" class="javax.swing.JList" binding="listEserciziDatabase">
             <constraints/>
             <properties>
-              <visibleRowCount value="5"/>
+              <visibleRowCount value="7"/>
             </properties>
           </component>
         </children>
