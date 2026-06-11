@@ -77,27 +77,40 @@ public class IntesaSport {
         return righeTabella;
     }
 
-    public static boolean registraRisultatiEsercizio(Long idDettaglioEx, Integer ripEff, Duration durataEff, String note){
+    public static boolean registraRisultatiEsercizio(String emailAtleta, Long idDettaglioEx, Integer ripEff, Duration durataEff, String note){
+        GestoreUtenti gu = new GestoreUtenti();
+        Atleta atleta = gu.ricercaAtletaPerEmail(emailAtleta);
 
-        GestoreEsercizi gEx = new GestoreEsercizi();
-        DettaglioEsercizio dettEx = gEx.trovaDettaglioExPerId(idDettaglioEx);
-
-        if (dettEx == null) {
+        if (atleta == null){
+            System.out.println("BLOCCO: Atleta non trovato!");
             return false;
         }
 
-        Prestazione prestazione = dettEx.getPrestazione();
+        SessioneAllenamento sessione = atleta.getSessionePerDettaglioEx(idDettaglioEx);
 
-        if(prestazione.prestazioneCompleta()){ // NON SI PUò REGISTRARE UNA PRESTAZIONE GIA COMPLETA
+        if(sessione == null){
+            System.out.println("BLOCCO: Sessione non trovato!");
             return false;
         }
+
+        DettaglioEsercizio dettEx = sessione.trovaDettaglioExPerId(idDettaglioEx);
+
+        if(dettEx == null){
+            System.out.println("BLOCCO: dettex non trovato!");
+            return false;
+        }
+
+        /*Prestazione prestazioneEsistente = dettEx.getPrestazione(); //CONTROLLO SULLA PRESTAZIONE CHE NON SIA GIA COMPLETATA
+        if (prestazioneEsistente != null && prestazioneEsistente.prestazioneCompleta()) {
+            System.out.println("BLOCCO: Prestazione completa!");
+            return false;
+        }*/
 
         boolean risultato = dettEx.creaPrestazione(ripEff, durataEff, note);
 
         if (risultato){ // SERVE PER GESTIRE LO STATO DELLA PRESTAZIONE
-            SessioneAllenamento sessione = dettEx.getSessioneAllenamento();
 
-            if (prestazione.prestazioneCompleta()) {
+            if (sessione.sessioneCompleta()) {
                 sessione.aggiornaStato(StatoSessione.COMPLETATA);
             }
             else {

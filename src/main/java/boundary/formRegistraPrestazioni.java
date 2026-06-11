@@ -28,6 +28,7 @@ public class formRegistraPrestazioni {
     private JTextField textTempoImpiegato;
     private JButton buttonRegPres;
     private JPanel panelMain;
+    private JTextField textIdSessione;
 
     private void eseguiCaricamentoTabella() {
         String email = textEmail.getText();
@@ -60,8 +61,12 @@ public class formRegistraPrestazioni {
             String attualeIdSessione = rigaCopia[0];
 
             if (attualeIdSessione != null && attualeIdSessione.equals(ultimoIdSessione)) {
-                rigaCopia[0] = ""; rigaCopia[1] = ""; rigaCopia[2] = ""; rigaCopia[3] = "";
-                rigaCopia[4] = ""; rigaCopia[5] = "";
+                rigaCopia[0] = "";
+                rigaCopia[1] = "";
+                rigaCopia[2] = "";
+                rigaCopia[3] = "";
+                rigaCopia[4] = "";
+                rigaCopia[5] = "";
             } else {
                 ultimoIdSessione = attualeIdSessione;
             }
@@ -124,11 +129,10 @@ public class formRegistraPrestazioni {
         buttonRegPres.addActionListener(e -> {
 
             String idDettaglio = textIdDettaglio.getText().trim();
+            String emailAtleta = textEmail.getText().trim();
             String ripetizioni = textRipetizioni.getText().trim();
             String note = textNote.getText().trim();
             String tempo = textTempoImpiegato.getText().trim();
-
-            System.out.println("ID DETTAGLIO: " + idDettaglio);
 
             if (idDettaglio.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
@@ -158,7 +162,7 @@ public class formRegistraPrestazioni {
             try {
                 if (!ripetizioni.isEmpty()) {
                     ripetizioniInt = Integer.parseInt(ripetizioni);
-                    if (ripetizioniInt<0){
+                    if (ripetizioniInt < 0) {
                         JOptionPane.showMessageDialog(null,
                                 "Il tempo e le ripetizioni non possono essere negativi", "Errore",
                                 JOptionPane.ERROR_MESSAGE);
@@ -168,7 +172,7 @@ public class formRegistraPrestazioni {
 
                 if (!tempo.isEmpty()) {
                     tempoLong = Long.parseLong(tempo);
-                    if (tempoLong <0){
+                    if (tempoLong < 0) {
                         JOptionPane.showMessageDialog(null,
                                 "Il tempo e le ripetizioni non possono essere negativi", "Errore",
                                 JOptionPane.ERROR_MESSAGE);
@@ -182,7 +186,7 @@ public class formRegistraPrestazioni {
                 return;
             }
 
-            boolean successo = IntesaSport.registraRisultatiEsercizio(Long.parseLong(idDettaglio), ripetizioniInt, tempoDuration, note);
+            boolean successo = IntesaSport.registraRisultatiEsercizio(emailAtleta, Long.parseLong(idDettaglio), ripetizioniInt, tempoDuration, note);
 
             if (successo) {
                 eseguiCaricamentoTabella();
@@ -218,7 +222,6 @@ public class formRegistraPrestazioni {
 
         return frame;
     }
-
 
 
     {
@@ -308,6 +311,15 @@ public class formRegistraPrestazioni {
         buttonRegPres = new JButton();
         buttonRegPres.setText("Registra prestazioni");
         panelModifica.add(buttonRegPres, new GridConstraints(3, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(160, -1), new Dimension(160, -1), 0, false));
+        textIdSessione = new JTextField();
+        textIdSessione.setEditable(false);
+        textIdSessione.setInheritsPopupMenu(false);
+        textIdSessione.setSelectionColor(new Color(-14007439));
+        textIdSessione.setText("");
+        panelModifica.add(textIdSessione, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(25, -1), new Dimension(25, -1), new Dimension(25, -1), 0, false));
+        final JLabel label9 = new JLabel();
+        label9.setText("ID sessione:");
+        panelModifica.add(label9, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

@@ -63,6 +63,41 @@ public class SessioneAllenamento {
         gp.aggiorna(this);
     }
 
+    public DettaglioEsercizio trovaDettaglioExPerId(Long idDettaglioEx) {
+        if (idDettaglioEx == null) {
+            return null;
+        }
+
+        for (DettaglioEsercizio dettaglio : this.dettaglioEsercizi) {
+
+            if (dettaglio.getId() != null && dettaglio.getId().equals(idDettaglioEx)) {
+                return dettaglio;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean sessioneCompleta() {
+        if (this.dettaglioEsercizi.isEmpty()) {
+            return false;
+        }
+
+        for (DettaglioEsercizio dett : this.dettaglioEsercizi) {
+            Prestazione p = dett.getPrestazione();
+
+            if (p == null) {
+                return false;
+            }
+
+            if (!p.prestazioneCompleta()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public Long getId() {
         return id;
     }

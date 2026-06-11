@@ -29,9 +29,13 @@ public class Prestazione {
     }
 
     public boolean prestazioneCompleta() {
-        boolean notePresenti = this.note != null && !this.note.trim().isEmpty();
+        boolean haRipetizioni = (this.effettiveRipetizioni != null && this.effettiveRipetizioni > 0);
 
-        return notePresenti && this.effettiveRipetizioni != null && this.tempoImpiegato != null;
+        boolean haTempo = (this.tempoImpiegato != null && !this.tempoImpiegato.isZero());
+
+        boolean haNote = (this.note != null && !this.note.trim().isEmpty());
+
+        return (haRipetizioni || haTempo || haNote);
     }
 
     public Duration getTempoImpiegato() {

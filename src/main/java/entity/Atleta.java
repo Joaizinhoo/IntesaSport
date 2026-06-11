@@ -26,7 +26,7 @@ public class Atleta extends Utente{
     )
     private Set<Allenatore> AllenatoriAssociati = new HashSet<>();
 
-    @OneToMany(mappedBy = "atleta")
+    @OneToMany(mappedBy = "atleta", fetch = FetchType.EAGER)
     private List<SessioneAllenamento> sessioni = new ArrayList<>();
 
 
@@ -102,6 +102,21 @@ public class Atleta extends Utente{
         sessioniFiltrate.sort(Comparator.comparing(SessioneAllenamento::getDate));
 
         return sessioniFiltrate;
+    }
+
+    public SessioneAllenamento getSessionePerDettaglioEx(Long idDettaglioEx){
+        if (idDettaglioEx == null) {
+            return null;
+        }
+
+        for (SessioneAllenamento sessione : this.sessioni) {
+
+            if (sessione.trovaDettaglioExPerId(idDettaglioEx) != null) {
+                return sessione;
+            }
+        }
+
+        return null;
     }
 
     /// SETTER
