@@ -28,6 +28,12 @@ public class Prestazione {
         this.effettiveRipetizioni = effettiveRipetizioni;
     }
 
+    public boolean prestazioneCompleta() {
+        boolean notePresenti = this.note != null && !this.note.trim().isEmpty();
+
+        return notePresenti && this.effettiveRipetizioni != null && this.tempoImpiegato != null;
+    }
+
     public Duration getTempoImpiegato() {
         return tempoImpiegato;
     }
@@ -44,7 +50,7 @@ public class Prestazione {
         this.note = note;
     }
 
-    public int getEffettiveRipetizioni() {
+    public Integer getEffettiveRipetizioni() {
         return effettiveRipetizioni;
     }
 

@@ -56,6 +56,13 @@ public class SessioneAllenamento {
         return dtoList;
     }
 
+    public void aggiornaStato(StatoSessione stato){
+        GestorePersistenza gp = new GestorePersistenza();
+        this.setStatoSessione(stato);
+
+        gp.aggiorna(this);
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,5 +1,6 @@
 package controller;
 
+import com.mysql.cj.Session;
 import database.GestorePersistenza;
 import entity.*;
 
@@ -85,8 +86,26 @@ public class IntesaSport {
             return false;
         }
 
-        return dettEx.creaPrestazione(ripEff, durataEff, note);
+        Prestazione prestazione = dettEx.getPrestazione();
 
+        if(prestazione.prestazioneCompleta()){ // NON SI PUò REGISTRARE UNA PRESTAZIONE GIA COMPLETA
+            return false;
+        }
+
+        boolean risultato = dettEx.creaPrestazione(ripEff, durataEff, note);
+
+        if (risultato){ // SERVE PER GESTIRE LO STATO DELLA PRESTAZIONE
+            SessioneAllenamento sessione = dettEx.getSessioneAllenamento();
+
+            if (prestazione.prestazioneCompleta()) {
+                sessione.aggiornaStato(StatoSessione.COMPLETATA);
+            }
+            else {
+                sessione.aggiornaStato(StatoSessione.IN_CORSO);
+            }
+        }
+
+        return risultato;
     }
 
     //Metodo con il quale il controller andrà a richiamare il creaNuovoEsercizio del gestoreEsercizi, Information Expert di esercizi
