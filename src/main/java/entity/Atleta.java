@@ -151,6 +151,13 @@ public class Atleta extends Utente{
 
     @Override
     public String toString() {
+        return this.getNome() + " " + this.getCognome() + " (" + this.getEmail() + ")";
+    }
+
+    //Lore se ti serve questo toString dimmelo che lo rimettiamo tvb
+
+    /*@Override
+    public String toString() {
         return  super.toString() + "Atleta{" +
                 "disciplinaPraticata='" + disciplinaPraticata + '\'' +
                 ", esperienza='" + esperienza + '\'' +
@@ -159,6 +166,10 @@ public class Atleta extends Utente{
                 ", sessioni=" + sessioni +
                 '}';
     }
+    */
+
+
+
 
     @Override
     public boolean equals(Object o) {

@@ -13,9 +13,9 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 
 
-//Cercando su google ho aggiunto "extends javax.swing.JFrame" per poter chiudere la finestra del form una volta che l'esercizio è creato con successo
+//Cercando su google ho aggiunto "extends javax.swing.JFrame" per poter avere un pop-up dalla schermata precedente
 
-public class FormCreaEsercizio extends JFrame {
+public class FormCreaEsercizio extends javax.swing.JDialog {
 
     private JPanel contentPane;
     private JTextField txtNome;
@@ -24,6 +24,8 @@ public class FormCreaEsercizio extends JFrame {
     private JLabel LabelName;
     private JLabel LabelDescrizione;
     private JTextArea txtDescrizione;
+    //mi servirà per passare il nome dell'esercizio appena creato al form che chiamerà questo form.
+    private String nomeEsercizioCreato = null;
 
     public FormCreaEsercizio() {
 
@@ -48,6 +50,14 @@ public class FormCreaEsercizio extends JFrame {
                     return;
                 }
 
+                if (nomeEsercizio.length() > 100) {
+                    JOptionPane.showMessageDialog(
+                            FormCreaEsercizio.this,
+                            "Il nome dell'esercizio è troppo lungo (Max 100 caratteri).",
+                            "Errore", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
                 //Se l'esercizio è già presente nel database il boolean sarà falso
 
                 boolean salvataggioEsercizio = IntesaSport.creaEsercizio(nomeEsercizio, descrizione);
@@ -69,6 +79,9 @@ public class FormCreaEsercizio extends JFrame {
                             "Esercizio Creato",
                             JOptionPane.INFORMATION_MESSAGE
                     );
+
+                    //Salvo il nome del nuovo esercizio così da poterlo cercare nel FormAggiungiEsercizioAllaSessione
+                    FormCreaEsercizio.this.nomeEsercizioCreato = nomeEsercizio;
 
                     //Voglio che la finestra si chiuda automaticamente
                     //dopo aver creato con successo un esercizio
@@ -143,6 +156,11 @@ public class FormCreaEsercizio extends JFrame {
      */
     public JComponent $$$getRootComponent$$$() {
         return contentPane;
+    }
+
+    //Serve a passare il nome del nuovo esercizio ad altre classi
+    public String getNomeEsercizioCreato(){
+        return this.nomeEsercizioCreato;
     }
 
     /* //MAIN PER PROVARE LA CLASSE ____________________________________________________________________________

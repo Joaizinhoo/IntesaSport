@@ -66,11 +66,7 @@ public class Esercizio implements Comparable<Esercizio> {
 
     @Override
     public String toString() {
-        return "Esercizio{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", descrizione='" + descrizione + '\'' +
-                '}';
+        return this.nome;
     }
 
     @Override

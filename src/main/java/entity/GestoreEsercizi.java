@@ -43,7 +43,8 @@ public class GestoreEsercizi {
     public List<Esercizio> visualizzaListaEsercizi() {
         GestorePersistenza gp = new GestorePersistenza();
         List<Esercizio> listaEsercizi = gp.cercaPerCampi(Esercizio.class, new java.util.HashMap<>());
-        listaEsercizi.Collections.sort(listaEsercizi);
+        Collections.sort(listaEsercizi);
+        return listaEsercizi;
     }
 
 

@@ -1,5 +1,6 @@
 package controller;
 
+import database.GestorePersistenza;
 import entity.*;
 
 import java.time.Duration;
@@ -88,6 +89,8 @@ public class IntesaSport {
 
     }
 
+    //Metodo con il quale il controller andrà a richiamare il creaNuovoEsercizio del gestoreEsercizi, Information Expert di esercizi
+
     public static boolean creaEsercizio (String nome, String descrizione){
 
         GestoreEsercizi ges = new GestoreEsercizi();
@@ -95,6 +98,68 @@ public class IntesaSport {
 
     }
 
+    //Il controller deve poter fornire un metodo alle boundary per poter popolare i menu di selezione degli esercizi
+
+    public static List<Esercizio> visualizzaListaEsercizi() {
+        GestoreEsercizi ges = new GestoreEsercizi();
+        return ges.visualizzaListaEsercizi();
+    }
+
+    public static List<Atleta> visualizzaAtletiAssociati(){
+        GestoreUtenti gu = new GestoreUtenti();
+        return gu.visualizzaAtletiAssociati("mario.rossi@sport.it");
+    }
+
+    public static boolean creaNuovaSessione(Atleta atleta, LocalDate data, int durata, String descrizione, List<DettaglioEsercizio> dettagli) {
+
+        // controlli sui dari
+        if (atleta == null) {
+            System.out.println("L'atleta è nullo.");
+            return false;
+        }
+
+        if (data == null) {
+            System.out.println("La data è nulla.");
+            return false;
+        }
+
+        if (dettagli == null || dettagli.isEmpty()) {
+            System.out.println("Non ci sono esercizi associati.");
+            return false;
+        }
+
+        GestorePersistenza gp = new GestorePersistenza();
+
+        Allenatore allenatoreLoggato = gp.trovaPerEmail(Allenatore.class, "mario.rossi@sport.it");
+        if (allenatoreLoggato == null) {
+            System.out.println("Allenatore loggato non trovato");
+            return false;
+        }
+
+        // Assegno i valori alla sessione allenamento
+        SessioneAllenamento nuovaSessione = new SessioneAllenamento();
+        nuovaSessione.setAtleta(atleta);
+        nuovaSessione.setAllenatore(allenatoreLoggato);
+        nuovaSessione.setDate(data);
+        nuovaSessione.setDurataPrevista(Duration.ofMinutes(durata));
+        nuovaSessione.setDescrizione(descrizione);
+
+        // associo i dettagli allenamento
+        for (DettaglioEsercizio d : dettagli) {
+            if (d != null) {
+                d.setSessioneAllenamento(nuovaSessione);
+            }
+        }
+
+        // salvataggio dell'insieme dei dati
+        Object[] oggettiDaSalvare = new Object[1 + dettagli.size()];
+        oggettiDaSalvare[0] = nuovaSessione;
+        for (int i = 0; i < dettagli.size(); i++) {
+            oggettiDaSalvare[i + 1] = dettagli.get(i);
+        }
+
+        return gp.salvaTutti(oggettiDaSalvare);
+    }
 
 
 }
