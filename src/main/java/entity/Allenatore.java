@@ -1,6 +1,9 @@
 package entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 import java.util.*;
 
@@ -8,7 +11,7 @@ import java.util.*;
 @DiscriminatorValue("ALLENATORE")
 public class Allenatore extends Utente{
     private int codiceAssociativo;
-    @ManyToMany(mappedBy = "AllenatoriAssociati", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "AllenatoriAssociati")
     private Set<Atleta> atletiAssociati = new HashSet<>();
 
     @OneToMany(mappedBy = "allenatore")

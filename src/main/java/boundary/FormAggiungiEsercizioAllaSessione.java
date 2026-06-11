@@ -35,7 +35,6 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
         this.setContentPane(contentPane);
         this.pack();
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
 
         //Popolo la JList
         ricaricaListaEsercizi();
@@ -209,7 +208,7 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
         final JScrollPane scrollPane2 = new JScrollPane();
         contentPane.add(scrollPane2, new GridConstraints(1, 0, 1, 3, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         listEserciziDatabase = new JList();
-        listEserciziDatabase.setVisibleRowCount(7);
+        listEserciziDatabase.setVisibleRowCount(5);
         scrollPane2.setViewportView(listEserciziDatabase);
     }
 

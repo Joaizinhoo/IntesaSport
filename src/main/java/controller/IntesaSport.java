@@ -110,18 +110,21 @@ public class IntesaSport {
         return gu.visualizzaAtletiAssociati("mario.rossi@sport.it");
     }
 
-    public static boolean creaNuovaSessione(Atleta atleta, LocalDate data, int durata, String descrizione, List<Object[]> dettagliScelti) {
+    public static boolean creaNuovaSessione(Atleta atleta, LocalDate data, int durata, String descrizione, List<DettaglioEsercizio> dettagli) {
 
         // controlli sui dari
         if (atleta == null) {
+            System.out.println("L'atleta è nullo.");
             return false;
         }
 
         if (data == null) {
+            System.out.println("La data è nulla.");
             return false;
         }
 
-        if (dettagliScelti == null || dettagliScelti.isEmpty()) {
+        if (dettagli == null || dettagli.isEmpty()) {
+            System.out.println("Non ci sono esercizi associati.");
             return false;
         }
 
@@ -129,6 +132,7 @@ public class IntesaSport {
 
         Allenatore allenatoreLoggato = gp.trovaPerEmail(Allenatore.class, "mario.rossi@sport.it");
         if (allenatoreLoggato == null) {
+            System.out.println("Allenatore loggato non trovato");
             return false;
         }
 
@@ -139,17 +143,22 @@ public class IntesaSport {
         nuovaSessione.setDate(data);
         nuovaSessione.setDurataPrevista(Duration.ofMinutes(durata));
         nuovaSessione.setDescrizione(descrizione);
-        nuovaSessione.setStatoSessione(StatoSessione.ASSEGNATA);
 
         // associo i dettagli allenamento
-        for (Object[] dato : dettagliScelti) {
-            Esercizio e = (Esercizio) dato[0];
-            int ripetizioni = (int) dato[1];
-            int minuti = (int) dato [2];
-            nuovaSessione.creaDettaglioEsercizio(e, minuti, ripetizioni);
+        for (DettaglioEsercizio d : dettagli) {
+            if (d != null) {
+                d.setSessioneAllenamento(nuovaSessione);
+            }
         }
 
-        return gp.salvaTutti(nuovaSessione);
+        // salvataggio dell'insieme dei dati
+        Object[] oggettiDaSalvare = new Object[1 + dettagli.size()];
+        oggettiDaSalvare[0] = nuovaSessione;
+        for (int i = 0; i < dettagli.size(); i++) {
+            oggettiDaSalvare[i + 1] = dettagli.get(i);
+        }
+
+        return gp.salvaTutti(oggettiDaSalvare);
     }
 
 
