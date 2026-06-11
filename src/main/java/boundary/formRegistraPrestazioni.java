@@ -28,7 +28,6 @@ public class formRegistraPrestazioni {
     private JTextField textTempoImpiegato;
     private JButton buttonRegPres;
     private JPanel panelMain;
-    private JTextField textIdSessione;
 
     private void eseguiCaricamentoTabella() {
         String email = textEmail.getText();
@@ -311,15 +310,6 @@ public class formRegistraPrestazioni {
         buttonRegPres = new JButton();
         buttonRegPres.setText("Registra prestazioni");
         panelModifica.add(buttonRegPres, new GridConstraints(3, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(160, -1), new Dimension(160, -1), 0, false));
-        textIdSessione = new JTextField();
-        textIdSessione.setEditable(false);
-        textIdSessione.setInheritsPopupMenu(false);
-        textIdSessione.setSelectionColor(new Color(-14007439));
-        textIdSessione.setText("");
-        panelModifica.add(textIdSessione, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(25, -1), new Dimension(25, -1), new Dimension(25, -1), 0, false));
-        final JLabel label9 = new JLabel();
-        label9.setText("ID sessione:");
-        panelModifica.add(label9, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
