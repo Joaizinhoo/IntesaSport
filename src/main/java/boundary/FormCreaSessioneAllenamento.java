@@ -247,7 +247,7 @@ public class FormCreaSessioneAllenamento extends JFrame {
 
         frame.setContentPane(contentPane);
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //questo fa si che si chiuda solo il frame e non l'intera app a differenza di EXIT_ON_CLOSE
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -255,20 +255,6 @@ public class FormCreaSessioneAllenamento extends JFrame {
         frame.setResizable(false);
 
         return frame;
-    }
-
-    // MAIN PROVA_______________________________________________________________________________________________________________
-    public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                FormCreaSessioneAllenamento form = new FormCreaSessioneAllenamento();
-                form.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-                form.setMinimumSize(new java.awt.Dimension(350, 400));
-                form.setLocationRelativeTo(null);
-                form.setVisible(true);
-            }
-        });
     }
 
 

@@ -185,7 +185,7 @@ public class formRegistraPrestazioni {
 
         frame.setContentPane(panelMain);
 
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //questo fa si che si chiuda solo il frame e non l'intera app a differenza di EXIT_ON_CLOSE
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         frame.pack();
         frame.setLocationRelativeTo(null);
@@ -193,27 +193,6 @@ public class formRegistraPrestazioni {
         frame.setResizable(false);
 
         return frame;
-    }
-
-
-    public static void main(String[] args) {
-        // Crea un container standard di Windows/Mac per ospitare il tuo form
-        JFrame frame = new JFrame("Test Filtro Sessioni - IntesaSport");
-
-        // Dice a Java di mostrare l'interfaccia che hai disegnato
-        frame.setContentPane(new formRegistraPrestazioni().panel); // <-- Sostituisci 'panel1' con il nome del tuo pannello principale
-
-        // Imposta la chiusura del programma quando clicchi sulla "X" della finestra
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Adatta la dimensione della finestra in base ai componenti interni
-        frame.pack();
-
-        // Centra la finestra sullo schermo
-        frame.setLocationRelativeTo(null);
-
-        // Rende il form visibile
-        frame.setVisible(true);
     }
 
     {
