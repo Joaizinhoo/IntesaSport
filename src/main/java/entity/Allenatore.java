@@ -8,7 +8,7 @@ import java.util.*;
 @DiscriminatorValue("ALLENATORE")
 public class Allenatore extends Utente{
     private int codiceAssociativo;
-    @ManyToMany(mappedBy = "AllenatoriAssociati", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "allenatoriAssociati", fetch = FetchType.EAGER)
     private Set<Atleta> atletiAssociati = new HashSet<>();
 
     @OneToMany(mappedBy = "allenatore")

@@ -24,7 +24,7 @@ public class Atleta extends Utente{
             joinColumns = { @JoinColumn(name = "email_atleta") },
             inverseJoinColumns = { @JoinColumn(name = "email_allenatore") }
     )
-    private Set<Allenatore> AllenatoriAssociati = new HashSet<>();
+    private Set<Allenatore> allenatoriAssociati = new HashSet<>();
 
     @OneToMany(mappedBy = "atleta")
     private List<SessioneAllenamento> sessioni = new ArrayList<>();
@@ -107,7 +107,7 @@ public class Atleta extends Utente{
     /// SETTER
 
     public void setAllenatoriAssociati(Set<Allenatore> allenatoriAssociati) {
-        AllenatoriAssociati = allenatoriAssociati; }
+        allenatoriAssociati = allenatoriAssociati; }
 
     public void setObiettiviSportivi(String obiettiviSportivi) {
         this.obiettiviSportivi = obiettiviSportivi;
@@ -129,7 +129,7 @@ public class Atleta extends Utente{
     /// GETTER
 
     public Set<Allenatore> getAllenatoriAssociati() {
-        return AllenatoriAssociati;}
+        return allenatoriAssociati;}
 
     public String getEsperienza() {
         return esperienza;
@@ -153,23 +153,6 @@ public class Atleta extends Utente{
     public String toString() {
         return this.getNome() + " " + this.getCognome() + " (" + this.getEmail() + ")";
     }
-
-    //Lore se ti serve questo toString dimmelo che lo rimettiamo tvb
-
-    /*@Override
-    public String toString() {
-        return  super.toString() + "Atleta{" +
-                "disciplinaPraticata='" + disciplinaPraticata + '\'' +
-                ", esperienza='" + esperienza + '\'' +
-                ", obiettiviSportivi='" + obiettiviSportivi + '\'' +
-                ", AllenatoriAssociati=" + AllenatoriAssociati +
-                ", sessioni=" + sessioni +
-                '}';
-    }
-    */
-
-
-
 
     @Override
     public boolean equals(Object o) {

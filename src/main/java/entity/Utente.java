@@ -26,9 +26,6 @@ public class Utente {
         this.disciplinaPrevalente = disciplina;
     }
 
-    private void disco() {
-    }
-
     public String getNome(){
         return this.nome;
     }

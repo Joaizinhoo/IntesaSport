@@ -4,6 +4,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import controller.IntesaSport;
 import entity.Esercizio;
+import entity.EsercizioDettaglioDTO;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -11,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.Duration;
 import java.util.List;
 
 public class FormAggiungiEsercizioAllaSessione extends JFrame {
@@ -24,9 +26,7 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
     private JTextArea txtDescrizioneEse;
 
     // Variabili per passare i dati alla finestra principale
-    private Esercizio eseDaAggiungere;
-    private int ripetizioniScelte;
-    private int durataScelta;
+    private EsercizioDettaglioDTO dettaglioCreato;
     private boolean confermato = false; //diventa true se si preme "aggiungi"
 
     public FormAggiungiEsercizioAllaSessione() {
@@ -34,7 +34,7 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
         $$$setupUI$$$();
         this.setContentPane(contentPane);
         this.pack();
-        this.setResizable(false);
+        this.setMinimumSize(new Dimension(500, 500));
         this.setLocationRelativeTo(null);
 
         //Popolo la JList
@@ -107,16 +107,6 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
                     return;
                 }
 
-
-                //Il controllo è stato fatto su un massimo di 4 ore (Ad esempio una maratona)
-                if (minuti > 240) {
-                    JOptionPane.showMessageDialog(FormAggiungiEsercizioAllaSessione.this,
-                            "La durata non può superare i 300 minuti (5 ore).",
-                            "Errore Dati",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
                 // Anche qui, le ripetizioni ho impostato che partano sempre da 1 dalle opzioni del JSpinner
                 // Ma ho preferito inserire un doppio controllo
                 if (ripetizioni == 0 && minuti == 0) {
@@ -128,10 +118,15 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
                 }
 
                 //Salvo le variabili da passare
-                FormAggiungiEsercizioAllaSessione.this.eseDaAggiungere = esercizioSelezionato;
-                FormAggiungiEsercizioAllaSessione.this.ripetizioniScelte = ripetizioni;
-                FormAggiungiEsercizioAllaSessione.this.durataScelta = minuti;
-                FormAggiungiEsercizioAllaSessione.this.confermato = true;
+                Duration durataConv = Duration.ofMinutes(minuti);
+                dettaglioCreato = new EsercizioDettaglioDTO(
+                        ripetizioni,
+                        durataConv,
+                        esercizioSelezionato.getNome(),
+                        esercizioSelezionato.getDescrizione(),
+                        null
+                );
+                confermato = true;
 
                 //Chiudo il form una volta premuto
                 FormAggiungiEsercizioAllaSessione.this.dispose();
@@ -147,16 +142,8 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
         return this.confermato;
     }
 
-    public Esercizio getEsercizioDaAggiungere() {
-        return this.eseDaAggiungere;
-    }
-
-    public int getRipetizioniScelte() {
-        return this.ripetizioniScelte;
-    }
-
-    public int getDurataScelta() {
-        return this.durataScelta;
+    public EsercizioDettaglioDTO getDettaglioCreato() {
+        return this.dettaglioCreato;
     }
 
     /**

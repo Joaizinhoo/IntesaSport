@@ -9,6 +9,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 public class IntesaSport {
 
@@ -110,26 +111,33 @@ public class IntesaSport {
         return gu.visualizzaAtletiAssociati("mario.rossi@sport.it");
     }
 
-    public static boolean creaNuovaSessione(String titolo, Atleta atleta, LocalDate data, int durata, String descrizione, List<Object[]> dettagliScelti) {
+    public static boolean creaNuovaSessione(SessioneDTO dto, String emailAtleta) {
 
         // controlli sui dati
-        if(titolo.isEmpty()){
+        if(dto.getTitolo().isEmpty()){
             return false;
         }
 
-        if (atleta == null) {
+        if (emailAtleta == null || emailAtleta.isEmpty()) {
             return false;
         }
 
-        if (data == null) {
+        if (dto.getData() == null) {
             return false;
         }
 
-        if (dettagliScelti == null || dettagliScelti.isEmpty()) {
+        if (dto.getEsercizi() == null || dto.getEsercizi().isEmpty()) {
             return false;
         }
 
         GestorePersistenza gp = new GestorePersistenza();
+        GestoreUtenti gu = new GestoreUtenti();
+
+        // Se l'email inserita è di un allenatore ritorna errore
+        Atleta atleta = gu.ricercaAtletaPerEmail(emailAtleta);
+        if (atleta == null || !(atleta instanceof Atleta)) {
+            return false;
+        }
 
         Allenatore allenatoreLoggato = gp.trovaPerEmail(Allenatore.class, "mario.rossi@sport.it");
         if (allenatoreLoggato == null) {
@@ -138,20 +146,20 @@ public class IntesaSport {
 
         // Assegno i valori alla sessione allenamento
         SessioneAllenamento nuovaSessione = new SessioneAllenamento();
-        nuovaSessione.setTitolo(titolo);
+        nuovaSessione.setTitolo(dto.getTitolo());
         nuovaSessione.setAtleta(atleta);
         nuovaSessione.setAllenatore(allenatoreLoggato);
-        nuovaSessione.setDate(data);
-        nuovaSessione.setDurataPrevista(Duration.ofMinutes(durata));
-        nuovaSessione.setDescrizione(descrizione);
+        nuovaSessione.setDate(dto.getData());
+        nuovaSessione.setDurataPrevista(dto.getDurataPrevista());
+        nuovaSessione.setDescrizione(dto.getDescrizione());
         nuovaSessione.setStatoSessione(StatoSessione.ASSEGNATA);
 
         // associo i dettagli allenamento
-        for (Object[] dato : dettagliScelti) {
-            Esercizio e = (Esercizio) dato[0];
-            int ripetizioni = (int) dato[1];
-            int minuti = (int) dato [2];
-            nuovaSessione.creaDettaglioEsercizio(e, minuti, ripetizioni);
+        for (EsercizioDettaglioDTO dettDTO : dto.getEsercizi()) {
+            Esercizio e = gp.cercaPrimoPerCampi(Esercizio.class, Map.of("nome", dettDTO.getNomeEx()));
+            if (e != null) {
+                nuovaSessione.creaDettaglioEsercizio(e, (int)dettDTO.getDurata().toMinutes(), dettDTO.getRipetizioni());
+            }
         }
 
         return gp.salvaTutti(nuovaSessione);

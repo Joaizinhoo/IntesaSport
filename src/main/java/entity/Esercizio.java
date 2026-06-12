@@ -56,12 +56,15 @@ public class Esercizio implements Comparable<Esercizio> {
         if (this == o) return true;
         if (!(o instanceof Esercizio)) return false;
         Esercizio altro = (Esercizio) o;
-        return Objects.equals(nome, altro.nome);
+        if (this.nome == null) {
+            return altro.nome == null;
+        }
+        return this.nome.equalsIgnoreCase(altro.nome);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome);
+        return this.nome != null ? this.nome.toLowerCase().hashCode() : 0;
     }
 
     @Override

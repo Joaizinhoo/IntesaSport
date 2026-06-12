@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="boundary.FormCreaSessioneAllenamento">
-  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="13" column-count="11" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="14" column-count="11" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="580" height="450"/>
+      <xy x="20" y="20" width="672" height="717"/>
     </constraints>
     <properties>
       <maximumSize width="700" height="10500"/>
@@ -93,14 +93,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="49360" class="javax.swing.JButton" binding="aggiungiEsercizioButton" default-binding="true">
-        <constraints>
-          <grid row="10" column="0" row-span="1" col-span="11" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Aggiungi Esercizio"/>
-        </properties>
-      </component>
       <component id="aba" class="javax.swing.JSeparator">
         <constraints>
           <grid row="11" column="0" row-span="1" col-span="11" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -109,7 +101,7 @@
       </component>
       <component id="c97a2" class="javax.swing.JButton" binding="salvaSessioneButton" default-binding="true">
         <constraints>
-          <grid row="12" column="1" row-span="1" col-span="9" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="13" column="1" row-span="1" col-span="9" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <borderPainted value="false"/>
@@ -178,6 +170,30 @@
           </grid>
         </constraints>
         <properties/>
+      </component>
+      <component id="49360" class="javax.swing.JButton" binding="aggiungiEsercizioButton" default-binding="true">
+        <constraints>
+          <grid row="10" column="5" row-span="1" col-span="5" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Aggiungi Esercizio"/>
+        </properties>
+      </component>
+      <component id="765b4" class="javax.swing.JButton" binding="eliminaEsercizioButton" default-binding="true">
+        <constraints>
+          <grid row="10" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Elimina Esercizio"/>
+        </properties>
+      </component>
+      <component id="63d88" class="javax.swing.JLabel" binding="txtInfo">
+        <constraints>
+          <grid row="12" column="1" row-span="1" col-span="9" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="   "/>
+        </properties>
       </component>
     </children>
   </grid>

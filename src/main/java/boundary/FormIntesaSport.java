@@ -26,23 +26,13 @@ public class FormIntesaSport {
             public void actionPerformed(ActionEvent e) {
 
                 if (cercaSessioniFrame == null || !cercaSessioniFrame.isDisplayable()) {
-
-
                     formCercaSessioniConFiltro formInserimento = new formCercaSessioniConFiltro();
-
-
                     cercaSessioniFrame = formInserimento.apriFormCercaSessioni();
-
                     cercaSessioniFrame.setLocationRelativeTo(null);
-
                     cercaSessioniFrame.setVisible(true);
-
-
                 } else {
-
                     cercaSessioniFrame.toFront();
                     cercaSessioniFrame.requestFocus();
-
                 }
             }
         });
@@ -52,23 +42,13 @@ public class FormIntesaSport {
             public void actionPerformed(ActionEvent e) {
 
                 if (registraPrestazioniFrame == null || !registraPrestazioniFrame.isDisplayable()) {
-
-
                     formRegistraPrestazioni formRegistraP = new formRegistraPrestazioni();
-
-
                     registraPrestazioniFrame = formRegistraP.apriFormRegistraPrestazioni();
-
                     registraPrestazioniFrame.setLocationRelativeTo(null);
-
                     registraPrestazioniFrame.setVisible(true);
-
-
                 } else {
-
                     registraPrestazioniFrame.toFront();
                     registraPrestazioniFrame.requestFocus();
-
                 }
             }
         });
@@ -76,25 +56,21 @@ public class FormIntesaSport {
         creaSessioneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // Se la finestra non esiste o è stata chiusa (non displayable)
                 if (creaSessioniFrame == null || !creaSessioniFrame.isDisplayable()) {
 
+                    // Istanziamo il form (che ora è un JFrame)
+                    FormCreaSessioneAllenamento form = new FormCreaSessioneAllenamento();
 
-                    FormCreaSessioneAllenamento formCreaS = new FormCreaSessioneAllenamento();
+                    // Lo assegniamo alla variabile di istanza della classe per tracciarlo
+                    creaSessioniFrame = form;
 
-
-                    creaSessioniFrame = formCreaS.apriFormCreaSessioni();
-
-                    creaSessioniFrame.setLocationRelativeTo(null);
-
+                    creaSessioniFrame.setLocationRelativeTo(contentPane);
                     creaSessioniFrame.setVisible(true);
-
-
                 } else {
-
+                    // Se è già aperta, la porta in primo piano senza duplicarla
                     creaSessioniFrame.toFront();
                     creaSessioniFrame.requestFocus();
-
                 }
             }
         });
