@@ -4,15 +4,11 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import controller.IntesaSport;
-import entity.SessioneDTO;
-import entity.StatoSessione;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import java.awt.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class formCercaSessioniConFiltro {
     private JTextField textEmail;
@@ -49,30 +45,25 @@ public class formCercaSessioniConFiltro {
 
             DefaultTableModel model = new DefaultTableModel(colonne, 0);
 
-            // Stringa per tenere traccia dell'ID della sessione precedente nel ciclo
             String ultimoIdSessione = "";
 
             for (String[] riga : righeDati) {
-                // Facciamo una copia della riga originale per non modificarla direttamente nella sorgente
                 String[] rigaCopia = new String[riga.length];
                 System.arraycopy(riga, 0, rigaCopia, 0, riga.length);
 
-                String attualeIdSessione = rigaCopia[0]; // L'ID si trova all'indice 0
+                String attualeIdSessione = rigaCopia[0];
 
-                // TRUCCO: Se l'ID è identico a quello della riga prima, svuotiamo i dati ripetitivi della sessione
                 if (attualeIdSessione != null && attualeIdSessione.equals(ultimoIdSessione)) {
-                    rigaCopia[0] = ""; // Svuota ID
-                    rigaCopia[1] = ""; // Svuota Titolo
-                    rigaCopia[2] = ""; // Svuota Descrizione Sessione
-                    rigaCopia[3] = ""; // Svuota Data
-                    rigaCopia[4] = ""; // Svuota Durata prevista
-                    rigaCopia[5] = ""; // Svuota Stato sessione
+                    rigaCopia[0] = "";
+                    rigaCopia[1] = "";
+                    rigaCopia[2] = "";
+                    rigaCopia[3] = "";
+                    rigaCopia[4] = "";
+                    rigaCopia[5] = "";
                 } else {
-                    // Aggiorniamo l'ultimo ID visto solo se è una nuova sessione
                     ultimoIdSessione = attualeIdSessione;
                 }
 
-                // Aggiunge la riga "pulita" al modello della tabella
                 model.addRow(rigaCopia);
             }
 

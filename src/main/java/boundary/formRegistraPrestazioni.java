@@ -74,7 +74,6 @@ public class formRegistraPrestazioni {
 
         table1.setModel(model);
 
-        // Manteniamo le tue impostazioni di ridimensionamento colonne
         table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         table1.getColumnModel().getColumn(0).setPreferredWidth(40);
         table1.getColumnModel().getColumn(1).setPreferredWidth(120);
