@@ -10,11 +10,6 @@ public class GestoreEsercizi {
         this.gp = new GestorePersistenza();
     }
 
-    public DettaglioEsercizio trovaDettaglioExPerId(Long id){
-        DettaglioEsercizio dettEx = gp.trovaPerId(DettaglioEsercizio.class, id);
-        return dettEx;
-    }
-
     public boolean esisteEsercizio(String nome) {
 
         //Controllo se l'esercizio con quel nome è già presente nel DB (è unique)

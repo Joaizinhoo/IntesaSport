@@ -29,61 +29,73 @@ public class formRegistraPrestazioni {
     private JButton buttonRegPres;
     private JPanel panelMain;
 
+    private void eseguiCaricamentoTabella() {
+        String email = textEmail.getText();
+        String disciplina = textDisciplina.getText();
+        String statoString = (String) boxStatoSessione.getSelectedItem();
+        String dataString = textData.getText();
+
+        if (email == null || email.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Il campo E-Mail Atleta è obbligatorio per effettuare la ricerca!",
+                    "Errore Input",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, dataString, statoString, disciplina);
+
+        String[] colonne = {
+                "ID", "Titolo", "Descrizione", "Data", "Durata prevista",
+                "Stato sessione", "Id dettaglio esercizio", "Descrizione esercizio", "Nome esercizio",
+                "Durata esercizio", "Ripetizioni esercizio"
+        };
+
+        DefaultTableModel model = new DefaultTableModel(colonne, 0);
+        String ultimoIdSessione = "";
+
+        for (String[] riga : righeDati) {
+            String[] rigaCopia = new String[riga.length];
+            System.arraycopy(riga, 0, rigaCopia, 0, riga.length);
+            String attualeIdSessione = rigaCopia[0];
+
+            if (attualeIdSessione != null && attualeIdSessione.equals(ultimoIdSessione)) {
+                rigaCopia[0] = "";
+                rigaCopia[1] = "";
+                rigaCopia[2] = "";
+                rigaCopia[3] = "";
+                rigaCopia[4] = "";
+                rigaCopia[5] = "";
+            } else {
+                ultimoIdSessione = attualeIdSessione;
+            }
+            model.addRow(rigaCopia);
+        }
+
+        table1.setModel(model);
+
+        // Manteniamo le tue impostazioni di ridimensionamento colonne
+        table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        table1.getColumnModel().getColumn(0).setPreferredWidth(40);
+        table1.getColumnModel().getColumn(1).setPreferredWidth(120);
+        table1.getColumnModel().getColumn(2).setPreferredWidth(180);
+        table1.getColumnModel().getColumn(3).setWidth(90);
+        table1.getColumnModel().getColumn(3).setPreferredWidth(90);
+        table1.getColumnModel().getColumn(4).setPreferredWidth(110);
+        table1.getColumnModel().getColumn(5).setPreferredWidth(110);
+        table1.getColumnModel().getColumn(6).setPreferredWidth(140);
+        table1.getColumnModel().getColumn(7).setPreferredWidth(180);
+        table1.getColumnModel().getColumn(8).setPreferredWidth(120);
+        table1.getColumnModel().getColumn(9).setPreferredWidth(110);
+        table1.getColumnModel().getColumn(10).setPreferredWidth(130);
+        table1.getTableHeader().setResizingAllowed(true);
+    }
+
     public formRegistraPrestazioni() {
         panelModifica.setVisible(false);
 
         caricaSessioniButton.addActionListener(e -> {
-            String email = textEmail.getText();
-            String disciplina = textDisciplina.getText();
-            String statoString = (String) boxStatoSessione.getSelectedItem();
-            String dataString = textData.getText();
-
-            if (email == null || email.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(null,
-                        "Il campo E-Mail Atleta è obbligatorio per effettuare la ricerca!",
-                        "Errore Input",
-                        JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, dataString, statoString, disciplina);
-
-            String[] colonne = {
-                    "ID", "Titolo", "Descrizione", "Data", "Durata prevista",
-                    "Stato sessione", "Id dettaglio esercizio", "Descrizione esercizio", "Nome esercizio",
-                    "Durata esercizio", "Ripetizioni esercizio"
-            };
-
-            DefaultTableModel model = new DefaultTableModel(colonne, 0);
-
-            // Stringa per tenere traccia dell'ID della sessione precedente nel ciclo
-            String ultimoIdSessione = "";
-
-            for (String[] riga : righeDati) {
-                // Facciamo una copia della riga originale per non modificarla direttamente nella sorgente
-                String[] rigaCopia = new String[riga.length];
-                System.arraycopy(riga, 0, rigaCopia, 0, riga.length);
-
-                String attualeIdSessione = rigaCopia[0]; // L'ID si trova all'indice 0
-
-                // TRUCCO: Se l'ID è identico a quello della riga prima, svuotiamo i dati ripetitivi della sessione
-                if (attualeIdSessione != null && attualeIdSessione.equals(ultimoIdSessione)) {
-                    rigaCopia[0] = ""; // Svuota ID
-                    rigaCopia[1] = ""; // Svuota Titolo
-                    rigaCopia[2] = ""; // Svuota Descrizione Sessione
-                    rigaCopia[3] = ""; // Svuota Data
-                    rigaCopia[4] = ""; // Svuota Durata prevista
-                    rigaCopia[5] = ""; // Svuota Stato sessione
-                } else {
-                    // Aggiorniamo l'ultimo ID visto solo se è una nuova sessione
-                    ultimoIdSessione = attualeIdSessione;
-                }
-
-                // Aggiunge la riga "pulita" al modello della tabella
-                model.addRow(rigaCopia);
-            }
-
-            table1.setModel(model);
+            eseguiCaricamentoTabella();
         });
 
         table1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -116,11 +128,10 @@ public class formRegistraPrestazioni {
         buttonRegPres.addActionListener(e -> {
 
             String idDettaglio = textIdDettaglio.getText().trim();
+            String emailAtleta = textEmail.getText().trim();
             String ripetizioni = textRipetizioni.getText().trim();
             String note = textNote.getText().trim();
             String tempo = textTempoImpiegato.getText().trim();
-
-            System.out.println("ID DETTAGLIO: " + idDettaglio);
 
             if (idDettaglio.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
@@ -143,25 +154,29 @@ public class formRegistraPrestazioni {
                 return;
             }
 
-            if (Long.parseLong(tempo) < 0 || Integer.parseInt(ripetizioni) < 0){
-                JOptionPane.showMessageDialog(null,
-                        "Il tempo e le ripetizioni non possono essere negativo", "Errore",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             Integer ripetizioniInt = null;
             Long tempoLong = null;
             Duration tempoDuration = null;
 
             try {
-                // Se l'utente ha scritto qualcosa, allora (e solo allora) convertiamo
                 if (!ripetizioni.isEmpty()) {
                     ripetizioniInt = Integer.parseInt(ripetizioni);
+                    if (ripetizioniInt < 0) {
+                        JOptionPane.showMessageDialog(null,
+                                "Il tempo e le ripetizioni non possono essere negativi", "Errore",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                 }
 
                 if (!tempo.isEmpty()) {
                     tempoLong = Long.parseLong(tempo);
+                    if (tempoLong < 0) {
+                        JOptionPane.showMessageDialog(null,
+                                "Il tempo e le ripetizioni non possono essere negativi", "Errore",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                     tempoDuration = Duration.ofNanos(tempoLong);
                 }
 
@@ -170,9 +185,15 @@ public class formRegistraPrestazioni {
                 return;
             }
 
-            boolean successo = IntesaSport.registraRisultatiEsercizio(Long.parseLong(idDettaglio), ripetizioniInt, tempoDuration, note);
+            boolean successo = IntesaSport.registraRisultatiEsercizio(emailAtleta, Long.parseLong(idDettaglio), ripetizioniInt, tempoDuration, note);
 
             if (successo) {
+                eseguiCaricamentoTabella();
+
+                textRipetizioni.setText("");
+                textNote.setText("");
+                textTempoImpiegato.setText("");
+
                 JOptionPane.showMessageDialog(null,
                         "Registrazione avvenuta con successo", "Successo",
                         JOptionPane.INFORMATION_MESSAGE);
@@ -200,7 +221,6 @@ public class formRegistraPrestazioni {
 
         return frame;
     }
-
 
 
     {

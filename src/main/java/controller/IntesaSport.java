@@ -1,5 +1,6 @@
 package controller;
 
+import com.mysql.cj.Session;
 import database.GestorePersistenza;
 import entity.*;
 
@@ -77,17 +78,48 @@ public class IntesaSport {
         return righeTabella;
     }
 
-    public static boolean registraRisultatiEsercizio(Long idDettaglioEx, Integer ripEff, Duration durataEff, String note){
+    public static boolean registraRisultatiEsercizio(String emailAtleta, Long idDettaglioEx, Integer ripEff, Duration durataEff, String note){
+        GestoreUtenti gu = new GestoreUtenti();
+        Atleta atleta = gu.ricercaAtletaPerEmail(emailAtleta);
 
-        GestoreEsercizi gEx = new GestoreEsercizi();
-        DettaglioEsercizio dettEx = gEx.trovaDettaglioExPerId(idDettaglioEx);
-
-        if (dettEx == null) {
+        if (atleta == null){
+            System.out.println("BLOCCO: Atleta non trovato!");
             return false;
         }
 
-        return dettEx.creaPrestazione(ripEff, durataEff, note);
+        SessioneAllenamento sessione = atleta.getSessionePerDettaglioEx(idDettaglioEx);
 
+        if(sessione == null){
+            System.out.println("BLOCCO: Sessione non trovato!");
+            return false;
+        }
+
+        DettaglioEsercizio dettEx = sessione.trovaDettaglioExPerId(idDettaglioEx);
+
+        if(dettEx == null){
+            System.out.println("BLOCCO: dettex non trovato!");
+            return false;
+        }
+
+        /*Prestazione prestazioneEsistente = dettEx.getPrestazione(); //CONTROLLO SULLA PRESTAZIONE CHE NON SIA GIA COMPLETATA
+        if (prestazioneEsistente != null && prestazioneEsistente.prestazioneCompleta()) {
+            System.out.println("BLOCCO: Prestazione completa!");
+            return false;
+        }*/
+
+        boolean risultato = dettEx.creaPrestazione(ripEff, durataEff, note);
+
+        if (risultato){ // SERVE PER GESTIRE LO STATO DELLA PRESTAZIONE
+
+            if (sessione.sessioneCompleta()) {
+                sessione.aggiornaStato(StatoSessione.COMPLETATA);
+            }
+            else {
+                sessione.aggiornaStato(StatoSessione.IN_CORSO);
+            }
+        }
+
+        return risultato;
     }
 
     //Metodo con il quale il controller andrà a richiamare il creaNuovoEsercizio del gestoreEsercizi, Information Expert di esercizi
