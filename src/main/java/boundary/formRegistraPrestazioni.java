@@ -156,28 +156,40 @@ public class formRegistraPrestazioni {
             }
 
             Integer ripetizioniInt = null;
-            Integer tempoInt = null; // Cambiato da Long/Duration a Integer (minuti)
+            Integer tempoInt = null;
 
+
+            //CONTROLLI SUI DATI (ANCHE PER TEST)
             try {
                 if (!ripetizioni.isEmpty()) {
                     ripetizioniInt = Integer.parseInt(ripetizioni);
                     if (ripetizioniInt < 0) {
                         JOptionPane.showMessageDialog(null,
-                                "Il tempo e le ripetizioni non possono essere negativi", "Errore",
+                                "Il tempo e le ripetizioni non possono essere negativi!", "Errore",
                                 JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
-
+                if(note.trim().length() > 60){
+                    JOptionPane.showMessageDialog(null,
+                            "Le note non possono avere più di 60 caratteri!", "Errore",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 if (!tempo.isEmpty()) {
-                    tempoInt = Integer.parseInt(tempo); // Cambiato il parsing in Integer
+                    tempoInt = Integer.parseInt(tempo);
                     if (tempoInt < 0) {
                         JOptionPane.showMessageDialog(null,
-                                "Il tempo e le ripetizioni non possono essere negativi", "Errore",
+                                "Il tempo e le ripetizioni non possono essere negativi!", "Errore",
                                 JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    // Rimossa completamente la conversione Duration.ofNanos(tempoLong);
+                    else if(tempoInt > 60){
+                        JOptionPane.showMessageDialog(null,
+                                "Il tempo non può essere superiore ad un ora!", "Errore",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                 }
 
             } catch (NumberFormatException ex) {
@@ -185,7 +197,6 @@ public class formRegistraPrestazioni {
                 return;
             }
 
-            // Passa direttamente 'tempoInt' al posto di 'tempoDuration' al metodo del controller
             boolean successo = IntesaSport.registraRisultatiEsercizio(emailAtleta, Long.parseLong(idDettaglio), ripetizioniInt, tempoInt, note);
 
             if (successo) {
