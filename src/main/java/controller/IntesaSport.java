@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class IntesaSport {
 
-    public static List<String[]> visualizzaSessioniAssegnate(String email, String data, String stato, String disciplina){
+    public static List<String[]> visualizzaSessioniAssegnate(String email, LocalDate data, String stato, String disciplina){
         List<String[]> righeTabella = new ArrayList<>();
 
         GestoreUtenti gutenti = new GestoreUtenti();
@@ -43,17 +43,7 @@ public class IntesaSport {
                 break;
         }
 
-        LocalDate dataFiltro = null; //converte la data da stringa a data vera e propria
-        if (data != null && !data.trim().isEmpty()) {
-            try {
-                DateTimeFormatter formattatore = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                dataFiltro = LocalDate.parse(data, formattatore);
-            } catch (DateTimeParseException ex) {
-                return new ArrayList<>(); //ritorna se la data è scritta male
-            }
-        }
-
-        List<SessioneDTO> dtoList = atleta.visualizzaSessioniAssegnate(dataFiltro, statoEnum, disciplinaFiltro);
+        List<SessioneDTO> dtoList = atleta.visualizzaSessioniAssegnate(data, statoEnum, disciplinaFiltro);
 
         for (SessioneDTO sessione: dtoList){
             for(EsercizioDettaglioDTO esercizio: sessione.getEsercizi()){
@@ -62,12 +52,12 @@ public class IntesaSport {
                         sessione.getTitolo(),
                         sessione.getDescrizione(),
                         sessione.getData().toString(),
-                        sessione.getDurataPrevista().toNanos() + " minuti",
+                        sessione.getDurataPrevista() + " minuti",
                         sessione.getStatoSessione().toString(),
                         esercizio.getId().toString(),
                         esercizio.getDescrizioneEx(),
                         esercizio.getNomeEx(),
-                        esercizio.getDurata().toNanos() + " minuti",
+                        esercizio.getDurata() + " minuti",
                         String.valueOf(esercizio.getRipetizioni())
                 };
 
@@ -78,7 +68,7 @@ public class IntesaSport {
         return righeTabella;
     }
 
-    public static boolean registraRisultatiEsercizio(String emailAtleta, Long idDettaglioEx, Integer ripEff, Duration durataEff, String note){
+    public static boolean registraRisultatiEsercizio(String emailAtleta, Long idDettaglioEx, Integer ripEff, Integer durataEff, String note){
         GestoreUtenti gu = new GestoreUtenti();
         Atleta atleta = gu.ricercaAtletaPerEmail(emailAtleta);
 
@@ -190,7 +180,7 @@ public class IntesaSport {
         for (EsercizioDettaglioDTO dettDTO : dto.getEsercizi()) {
             Esercizio e = gp.cercaPrimoPerCampi(Esercizio.class, Map.of("nome", dettDTO.getNomeEx()));
             if (e != null) {
-                nuovaSessione.creaDettaglioEsercizio(e, (int)dettDTO.getDurata().toMinutes(), dettDTO.getRipetizioni());
+                nuovaSessione.creaDettaglioEsercizio(e, dettDTO.getDurata(), dettDTO.getRipetizioni());
             }
         }
 

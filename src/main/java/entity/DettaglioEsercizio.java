@@ -3,15 +3,13 @@ package entity;
 import database.GestorePersistenza;
 import jakarta.persistence.*;
 
-import java.time.Duration;
-
 @Entity
 public class DettaglioEsercizio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Duration durata;
+    private int durata;
     private int ripetizioni;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -28,14 +26,14 @@ public class DettaglioEsercizio {
 
     public DettaglioEsercizio() {}
 
-    public DettaglioEsercizio(SessioneAllenamento sessione, Esercizio esercizio, Duration durata, int ripetizioni) {
+    public DettaglioEsercizio(SessioneAllenamento sessione, Esercizio esercizio, int durata, int ripetizioni) {
         this.sessioneAllenamento = sessione;
         this.esercizio = esercizio;
         this.durata = durata;
         this.ripetizioni = ripetizioni;
     }
 
-    public boolean creaPrestazione(Integer ripEff, Duration durataEff, String note){
+    public boolean creaPrestazione(Integer ripEff, Integer durataEff, String note){
         GestorePersistenza gp = new GestorePersistenza();
 
         if (this.getPrestazione() == null){
@@ -71,11 +69,11 @@ public class DettaglioEsercizio {
         return true;
     }
 
-    public Duration getDurata() {
+    public int getDurata() {
         return durata;
     }
 
-    public void setDurata(Duration durata) {
+    public void setDurata(int durata) {
         this.durata = durata;
     }
 

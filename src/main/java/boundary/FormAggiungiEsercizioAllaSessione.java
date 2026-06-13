@@ -12,7 +12,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.Duration;
 import java.util.List;
 
 public class FormAggiungiEsercizioAllaSessione extends JFrame {
@@ -117,11 +116,10 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
                     return;
                 }
 
-                //Salvo le variabili da passare
-                Duration durataConv = Duration.ofMinutes(minuti);
+                // Modificato: passiamo direttamente il valore primitivo 'minuti' (int) al costruttore di EsercizioDettaglioDTO
                 dettaglioCreato = new EsercizioDettaglioDTO(
                         ripetizioni,
-                        durataConv,
+                        minuti,
                         esercizioSelezionato.getNome(),
                         esercizioSelezionato.getDescrizione(),
                         null
@@ -208,7 +206,6 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         SpinnerModel spinnerRipetizioni = new SpinnerNumberModel(1, 1, 5000, 1);
         repetitionSpinner = new JSpinner(spinnerRipetizioni);
         SpinnerModel spinnerDurata = new SpinnerNumberModel(0, 0, 240, 1);
@@ -241,29 +238,4 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
             }
         }
     }
-
-    /*
-    // main di test ________________________________________________________________________________________________
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                FormAggiungiEsercizioAllaSessione form = new FormAggiungiEsercizioAllaSessione();
-
-                // Chiude il programma quando chiudi la finestra
-                form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-                // Impostiamo una dimensione minima ragionevole per vedere bene tutto
-                form.setMinimumSize(new Dimension(320, 400));
-
-                // Centra la finestra nello schermo
-                form.setLocationRelativeTo(null);
-
-                // Mostra la finestra
-                form.setVisible(true);
-            }
-        });
-    }
-    _________________________________________________________________________________________________________________*/
-
 }

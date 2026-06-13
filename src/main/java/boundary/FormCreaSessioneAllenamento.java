@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.time.Duration;
 import java.util.*;
 
 
@@ -130,7 +129,6 @@ public class FormCreaSessioneAllenamento extends JFrame {
     }
 
     private void createUIComponents() {
-        // TODO: place custom component creation code here
         DatePickerSettings settings = new DatePickerSettings();
         datePicker1 = new DatePicker(settings);
         settings.setDateRangeLimits(LocalDate.now(), null);
@@ -165,8 +163,8 @@ public class FormCreaSessioneAllenamento extends JFrame {
 
                             EsercizioDettaglioDTO dto = popup.getDettaglioCreato();
 
-                            // riga nella lista JList
-                            String riga = dto.getNomeEx() + " - Ripetizioni: " + dto.getRipetizioni() + " - Durata: " + dto.getDurata().toMinutes() + " min";
+                            // riga nella lista JList - Modificato da .getDurata().toMinutes() a .getDurata() dato che ora è un int
+                            String riga = dto.getNomeEx() + " - Ripetizioni: " + dto.getRipetizioni() + " - Durata: " + dto.getDurata() + " min";
                             modelloListaEsercizi.addElement(riga);
 
                             //aggiungo l'esercizio nell'ArrayList che verrà usato per creare poi le associazioni
@@ -194,12 +192,13 @@ public class FormCreaSessioneAllenamento extends JFrame {
                 int durata = (Integer) spinnerDurata.getValue();
                 String descrizione = txtDescrizione.getText();
 
+                // Modificato: passiamo direttamente la variabile primitiva 'durata' (int) al posto di 'Duration.ofMinutes(durata)'
                 SessioneDTO sessioneDaCreare = new SessioneDTO(
                         null,
                         titoloSessione,
                         descrizione,
                         dataSelezionata,
-                        Duration.ofMinutes(durata),
+                        durata,
                         StatoSessione.ASSEGNATA,
                         listaEserciziSessione
                 );
@@ -286,36 +285,10 @@ public class FormCreaSessioneAllenamento extends JFrame {
 
         List<Atleta> listaAtleti = IntesaSport.visualizzaAtletiAssociati();
 
-        // Inserisce gli atleti nella tendina.
-        // Grazie al toString() che hai fatto, si vedranno i nomi!
         if (listaAtleti != null) {
             for (Atleta a : listaAtleti) {
                 comboAtleti.addItem(a);
             }
         }
     }
-
-
-    /*
-
-
-    // MAIN PROVA_______________________________________________________________________________________________________________
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                FormCreaSessioneAllenamento form = new FormCreaSessioneAllenamento();
-                form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                form.setMinimumSize(new Dimension(350, 400));
-                form.setLocationRelativeTo(null);
-                form.setVisible(true);
-            }
-        });
-    }
-
-    */
-
-
 }
-
-

@@ -6,10 +6,10 @@ public class EsercizioDettaglioDTO {
     private String descrizioneEx;
     private String nomeEx;
     private Long id;
-    private Duration durata;
+    private int durata;
     private int ripetizioni;
 
-    public EsercizioDettaglioDTO(int ripetizioni, Duration durata, String nomeEx, String descrizioneEx, Long id) {
+    public EsercizioDettaglioDTO(int ripetizioni, int durata, String nomeEx, String descrizioneEx, Long id) {
         this.ripetizioni = ripetizioni;
         this.durata = durata;
         this.nomeEx = nomeEx;
@@ -25,7 +25,7 @@ public class EsercizioDettaglioDTO {
         return nomeEx;
     }
 
-    public Duration getDurata() {
+    public int getDurata() {
         return durata;
     }
 

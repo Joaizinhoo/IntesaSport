@@ -2,8 +2,6 @@ package entity;
 
 import jakarta.persistence.*;
 
-import java.time.Duration;
-
 @Entity
 public class Prestazione {
     @Id
@@ -17,12 +15,12 @@ public class Prestazione {
     private String note;
 
     @Column(name = "tempoImpiegato", nullable = true)
-    private Duration tempoImpiegato;
+    private Integer tempoImpiegato;
 
     public Prestazione() {
     }
 
-    public Prestazione(Duration tempoImpiegato, String note, Integer effettiveRipetizioni) {
+    public Prestazione(int tempoImpiegato, String note, Integer effettiveRipetizioni) {
         this.tempoImpiegato = tempoImpiegato;
         this.note = note;
         this.effettiveRipetizioni = effettiveRipetizioni;
@@ -31,18 +29,18 @@ public class Prestazione {
     public boolean prestazioneCompleta() {
         boolean haRipetizioni = (this.effettiveRipetizioni != null && this.effettiveRipetizioni > 0);
 
-        boolean haTempo = (this.tempoImpiegato != null && !this.tempoImpiegato.isZero());
+        boolean haTempo = (this.tempoImpiegato != null);
 
         boolean haNote = (this.note != null && !this.note.trim().isEmpty());
 
         return (haRipetizioni || haTempo || haNote);
     }
 
-    public Duration getTempoImpiegato() {
+    public Integer getTempoImpiegato() {
         return tempoImpiegato;
     }
 
-    public void setTempoImpiegato(Duration tempoImpiegato) {
+    public void setTempoImpiegato(Integer tempoImpiegato) {
         this.tempoImpiegato = tempoImpiegato;
     }
 

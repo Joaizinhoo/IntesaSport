@@ -1,5 +1,6 @@
 package boundary;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -7,6 +8,7 @@ import controller.IntesaSport;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDate;
 import java.util.List;
 import java.awt.*;
 
@@ -14,10 +16,10 @@ public class formCercaSessioniConFiltro {
     private JTextField textEmail;
     private JTextField textDisciplina;
     private JComboBox boxStatoSessione;
-    private JTextField textData;
     private JButton caricaSessioniButton;
     private JTable table1;
     private JPanel panel;
+    private DatePicker dataField;
 
     public formCercaSessioniConFiltro() {
 
@@ -25,7 +27,7 @@ public class formCercaSessioniConFiltro {
             String email = textEmail.getText();
             String disciplina = textDisciplina.getText();
             String statoString = (String) boxStatoSessione.getSelectedItem();
-            String dataString = textData.getText();
+            LocalDate data = dataField.getDate();
 
             if (email == null || email.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null,
@@ -35,7 +37,7 @@ public class formCercaSessioniConFiltro {
                 return;
             }
 
-            List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, dataString, statoString, disciplina);
+            List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, data, statoString, disciplina);
 
             String[] colonne = {
                     "ID", "Titolo", "Descrizione", "Data", "Durata prevista",
@@ -68,6 +70,23 @@ public class formCercaSessioniConFiltro {
             }
 
             table1.setModel(model);
+
+            // === BLOCCO DI CONFIGURAZIONE TABELLA IDENTICO A REGISTRA PRESTAZIONI ===
+            table1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            table1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            table1.getColumnModel().getColumn(1).setPreferredWidth(120);
+            table1.getColumnModel().getColumn(2).setPreferredWidth(180);
+            table1.getColumnModel().getColumn(3).setWidth(90);
+            table1.getColumnModel().getColumn(3).setPreferredWidth(90);
+            table1.getColumnModel().getColumn(4).setPreferredWidth(110);
+            table1.getColumnModel().getColumn(5).setPreferredWidth(110);
+            table1.getColumnModel().getColumn(6).setPreferredWidth(140);
+            table1.getColumnModel().getColumn(7).setPreferredWidth(180);
+            table1.getColumnModel().getColumn(8).setPreferredWidth(120);
+            table1.getColumnModel().getColumn(9).setPreferredWidth(110);
+            table1.getColumnModel().getColumn(10).setPreferredWidth(130);
+            table1.getTableHeader().setResizingAllowed(true);
+            // ======================================================================
         });
     }
 
@@ -120,10 +139,11 @@ public class formCercaSessioniConFiltro {
         label2.setText("Data");
         label2.setVerticalAlignment(0);
         panel.add(label2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textData = new JTextField();
-        panel.add(textData, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
+
+        // === MODIFICATA LA SCROLLPANE AGGIUNGENDO IL RESTRITTANTE DELLE DIMENSIONI (PREFERITA E MASSIMA A 250) ===
         final JScrollPane scrollPane1 = new JScrollPane();
-        panel.add(scrollPane1, new GridConstraints(4, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel.add(scrollPane1, new GridConstraints(4, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 250), new Dimension(-1, 250), 0, false));
+
         table1 = new JTable();
         scrollPane1.setViewportView(table1);
         final JLabel label3 = new JLabel();
@@ -140,6 +160,8 @@ public class formCercaSessioniConFiltro {
         caricaSessioniButton = new JButton();
         caricaSessioniButton.setText("Carica sessioni");
         panel.add(caricaSessioniButton, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 30), new Dimension(150, 30), 0, false));
+        dataField = new DatePicker();
+        panel.add(dataField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
     }
 
     /**
@@ -148,5 +170,4 @@ public class formCercaSessioniConFiltro {
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
-
 }

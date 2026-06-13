@@ -1,5 +1,6 @@
 package boundary;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -10,6 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.util.List;
 import java.awt.*;
 
@@ -17,7 +19,6 @@ public class formRegistraPrestazioni {
     private JTextField textEmail;
     private JTextField textDisciplina;
     private JComboBox boxStatoSessione;
-    private JTextField textData;
     private JButton caricaSessioniButton;
     private JTable table1;
     private JPanel panel;
@@ -28,12 +29,13 @@ public class formRegistraPrestazioni {
     private JTextField textTempoImpiegato;
     private JButton buttonRegPres;
     private JPanel panelMain;
+    private DatePicker dataField;
 
     private void eseguiCaricamentoTabella() {
         String email = textEmail.getText();
         String disciplina = textDisciplina.getText();
         String statoString = (String) boxStatoSessione.getSelectedItem();
-        String dataString = textData.getText();
+        LocalDate data = dataField.getDate();
 
         if (email == null || email.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null,
@@ -43,7 +45,7 @@ public class formRegistraPrestazioni {
             return;
         }
 
-        List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, dataString, statoString, disciplina);
+        List<String[]> righeDati = IntesaSport.visualizzaSessioniAssegnate(email, data, statoString, disciplina);
 
         String[] colonne = {
                 "ID", "Titolo", "Descrizione", "Data", "Durata prevista",
@@ -130,7 +132,7 @@ public class formRegistraPrestazioni {
             String emailAtleta = textEmail.getText().trim();
             String ripetizioni = textRipetizioni.getText().trim();
             String note = textNote.getText().trim();
-            String tempo = textTempoImpiegato.getText().trim();
+            String tempo = textTempoImpiegato.getText().trim(); // Ora l'utente inserisce i minuti qui
 
             if (idDettaglio.isEmpty()) {
                 JOptionPane.showMessageDialog(null,
@@ -154,8 +156,7 @@ public class formRegistraPrestazioni {
             }
 
             Integer ripetizioniInt = null;
-            Long tempoLong = null;
-            Duration tempoDuration = null;
+            Integer tempoInt = null; // Cambiato da Long/Duration a Integer (minuti)
 
             try {
                 if (!ripetizioni.isEmpty()) {
@@ -169,22 +170,23 @@ public class formRegistraPrestazioni {
                 }
 
                 if (!tempo.isEmpty()) {
-                    tempoLong = Long.parseLong(tempo);
-                    if (tempoLong < 0) {
+                    tempoInt = Integer.parseInt(tempo); // Cambiato il parsing in Integer
+                    if (tempoInt < 0) {
                         JOptionPane.showMessageDialog(null,
                                 "Il tempo e le ripetizioni non possono essere negativi", "Errore",
                                 JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                    tempoDuration = Duration.ofNanos(tempoLong);
+                    // Rimossa completamente la conversione Duration.ofNanos(tempoLong);
                 }
 
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Inserisci solo numeri nei campi numerici!");
+                JOptionPane.showMessageDialog(null, "Inserisci solo numeri interi nei campi numerici!");
                 return;
             }
 
-            boolean successo = IntesaSport.registraRisultatiEsercizio(emailAtleta, Long.parseLong(idDettaglio), ripetizioniInt, tempoDuration, note);
+            // Passa direttamente 'tempoInt' al posto di 'tempoDuration' al metodo del controller
+            boolean successo = IntesaSport.registraRisultatiEsercizio(emailAtleta, Long.parseLong(idDettaglio), ripetizioniInt, tempoInt, note);
 
             if (successo) {
                 eseguiCaricamentoTabella();
@@ -259,8 +261,6 @@ public class formRegistraPrestazioni {
         label2.setText("Data");
         label2.setVerticalAlignment(0);
         panel.add(label2, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        textData = new JTextField();
-        panel.add(textData, new GridConstraints(3, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), new Dimension(200, -1), 0, false));
         final JScrollPane scrollPane1 = new JScrollPane();
         panel.add(scrollPane1, new GridConstraints(4, 1, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(-1, 250), new Dimension(-1, 250), 0, false));
         table1 = new JTable();
@@ -309,6 +309,8 @@ public class formRegistraPrestazioni {
         buttonRegPres = new JButton();
         buttonRegPres.setText("Registra prestazioni");
         panelModifica.add(buttonRegPres, new GridConstraints(3, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(160, -1), new Dimension(160, -1), 0, false));
+        dataField = new DatePicker();
+        panel.add(dataField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
     }
 
     /**

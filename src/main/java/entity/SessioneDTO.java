@@ -1,6 +1,5 @@
 package entity;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,11 +8,11 @@ public class SessioneDTO {
     private String titolo;
     private String descrizione;
     private LocalDate data;
-    private Duration durataPrevista;
+    private int durataPrevista; // Cambiato da Duration a int (minuti)
     private StatoSessione statoSessione;
     private List<EsercizioDettaglioDTO> esercizi;
 
-    public SessioneDTO(Long idSessione, String titolo, String descrizione, LocalDate data, Duration durataPrevista, StatoSessione statoSessione, List<EsercizioDettaglioDTO> esercizi) {
+    public SessioneDTO(Long idSessione, String titolo, String descrizione, LocalDate data, int durataPrevista, StatoSessione statoSessione, List<EsercizioDettaglioDTO> esercizi) {
         this.idSessione = idSessione;
         this.titolo = titolo;
         this.descrizione = descrizione;
@@ -27,7 +26,7 @@ public class SessioneDTO {
         return esercizi;
     }
 
-    public Duration getDurataPrevista() {
+    public int getDurataPrevista() { // Cambiato tipo di ritorno in int
         return durataPrevista;
     }
 

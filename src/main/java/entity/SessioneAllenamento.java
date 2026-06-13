@@ -3,7 +3,6 @@ package entity;
 import database.GestorePersistenza;
 import jakarta.persistence.*;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class SessioneAllenamento {
     private String titolo;
     private String descrizione;
     private LocalDate date;
-    private Duration durataPrevista;
+    private int durataPrevista;
 
     @Enumerated(EnumType.STRING)
     private StatoSessione statoSessione;
@@ -75,8 +74,7 @@ public class SessioneAllenamento {
 
         // FINE CONTROLLI SUI DATI
 
-        java.time.Duration durataConvertita = java.time.Duration.ofMinutes(durata);
-        DettaglioEsercizio nuovoDettaglio = new DettaglioEsercizio(this, ese, durataConvertita, ripetizioni);
+        DettaglioEsercizio nuovoDettaglio = new DettaglioEsercizio(this, ese, durata, ripetizioni);
 
         //Se per qualche modo la lista dei DettaglioEsercizio non è stata inizializzata applico questa prefcauzione
         if (this.dettaglioEsercizi == null) {
@@ -126,11 +124,11 @@ public class SessioneAllenamento {
         this.date = date;
     }
 
-    public Duration getDurataPrevista() {
+    public int getDurataPrevista() {
         return durataPrevista;
     }
 
-    public void setDurataPrevista(Duration durataPrevista) {
+    public void setDurataPrevista(int durataPrevista) {
         this.durataPrevista = durataPrevista;
     }
 
