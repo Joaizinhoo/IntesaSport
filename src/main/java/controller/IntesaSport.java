@@ -1,5 +1,6 @@
 package controller;
 
+import boundary.servizionotifiche.IServizioNotifiche;
 import dto.EsercizioDettaglioDTO;
 import dto.SessioneDTO;
 import database.GestorePersistenza;
@@ -176,7 +177,14 @@ public class IntesaSport {
             }
         }
 
-        return allenatoreLoggato.salvaSessione(nuovaSessione);
+        boolean check = allenatoreLoggato.salvaSessione(nuovaSessione);
+        /*
+        if(check) {
+            IServizioNotifiche noty = new IServizioNotifiche();
+            noty.inviaNotifica(emailAtleta,"Ti è stata assegnata una nuova sessione! Controlla le tue Sessioni per scoprirne di più");
+        }
+        */
+        return check;
     }
 
 
