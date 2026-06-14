@@ -74,29 +74,20 @@ public class IntesaSport {
         Atleta atleta = gu.ricercaAtletaPerEmail(emailAtleta);
 
         if (atleta == null){
-            System.out.println("BLOCCO: Atleta non trovato!");
             return false;
         }
 
         SessioneAllenamento sessione = atleta.getSessionePerDettaglioEx(idDettaglioEx);
 
         if(sessione == null){
-            System.out.println("BLOCCO: Sessione non trovato!");
             return false;
         }
 
         DettaglioEsercizio dettEx = sessione.trovaDettaglioExPerId(idDettaglioEx);
 
         if(dettEx == null){
-            System.out.println("BLOCCO: dettex non trovato!");
             return false;
         }
-
-        /*Prestazione prestazioneEsistente = dettEx.getPrestazione(); //CONTROLLO SULLA PRESTAZIONE CHE NON SIA GIA COMPLETATA
-        if (prestazioneEsistente != null && prestazioneEsistente.prestazioneCompleta()) {
-            System.out.println("BLOCCO: Prestazione completa!");
-            return false;
-        }*/
 
         boolean risultato = dettEx.creaPrestazione(ripEff, durataEff, note);
 
