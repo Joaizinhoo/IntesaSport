@@ -22,6 +22,10 @@ public class GestoreUtenti {
         return this.gp.trovaPerEmail(Allenatore.class, email);
     }
 
+    public boolean ciao (){
+        return true;
+    }
+
     public List<Atleta> visualizzaAtletiAssociati(String emailAllenatore) {
 
        GestorePersistenza gp = new GestorePersistenza();
