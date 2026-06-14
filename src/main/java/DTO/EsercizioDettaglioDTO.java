@@ -1,4 +1,4 @@
-package entity;
+package DTO;
 
 
 public class EsercizioDettaglioDTO {

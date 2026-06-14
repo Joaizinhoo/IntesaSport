@@ -1,4 +1,6 @@
-package entity;
+package DTO;
+
+import entity.StatoSessione;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,5 +1,7 @@
 package entity;
 
+import DTO.EsercizioDettaglioDTO;
+import DTO.SessioneDTO;
 import database.GestorePersistenza;
 import jakarta.persistence.*;
 

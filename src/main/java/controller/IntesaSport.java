@@ -1,12 +1,10 @@
 package controller;
 
-import com.mysql.cj.Session;
+import DTO.EsercizioDettaglioDTO;
+import DTO.SessioneDTO;
 import database.GestorePersistenza;
 import entity.*;
 
-import java.time.Duration;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
