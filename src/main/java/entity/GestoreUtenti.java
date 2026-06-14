@@ -3,6 +3,7 @@ package entity;
 import database.GestorePersistenza;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class GestoreUtenti {
     private GestorePersistenza gp;
@@ -19,14 +20,14 @@ public class GestoreUtenti {
 
     public List<Atleta> visualizzaAtletiAssociati(String emailAllenatore) {
 
-        database.GestorePersistenza gp = new database.GestorePersistenza();
+       GestorePersistenza gp = new GestorePersistenza();
 
-        entity.Allenatore allenatoreLoggato = gp.trovaPerEmail(entity.Allenatore.class, emailAllenatore);
+        Allenatore allenatoreLoggato = gp.trovaPerEmail(Allenatore.class, emailAllenatore);
         if (allenatoreLoggato != null) {
-            return new java.util.ArrayList<>(allenatoreLoggato.getAtletiAssociati());
+            return new ArrayList<>(allenatoreLoggato.getAtletiAssociati());
         }
         //Ritorna lista vuota se non c'è l'allenatore loggato per evitare exception points
-        return new java.util.ArrayList<>();
+        return new ArrayList<>();
     }
 
 }

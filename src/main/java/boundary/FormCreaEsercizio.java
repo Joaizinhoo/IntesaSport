@@ -174,11 +174,11 @@ public class FormCreaEsercizio extends JDialog {
      /* //MAIN PER PROVARE LA CLASSE ____________________________________________________________________________
 
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+       SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 FormCreaEsercizio form = new FormCreaEsercizio();
-                form.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+                form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 form.setMinimumSize(new java.awt.Dimension(350, 250));
                 form.setLocationRelativeTo(null);
                 form.setVisible(true);

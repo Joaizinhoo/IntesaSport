@@ -1,12 +1,13 @@
 package entity;
 
-import DTO.EsercizioDettaglioDTO;
+import dto.EsercizioDettaglioDTO;
 import database.GestorePersistenza;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class SessioneAllenamento {
@@ -218,13 +219,13 @@ public class SessioneAllenamento {
         if (this == o) return true;
         if (!(o instanceof SessioneAllenamento that)) return false;
         if (this.id == null || that.getId() == null) return false;
-        return java.util.Objects.equals(id, that.getId());
+        return Objects.equals(id, that.getId());
     }
 
     @Override
     public int hashCode() {
         if (id != null) {
-            return java.util.Objects.hash(id);
+            return Objects.hash(id);
         }
         return super.hashCode();
     }

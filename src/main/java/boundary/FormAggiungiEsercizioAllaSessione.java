@@ -4,7 +4,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import controller.IntesaSport;
 import entity.Esercizio;
-import DTO.EsercizioDettaglioDTO;
+import dto.EsercizioDettaglioDTO;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

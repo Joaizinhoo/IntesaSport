@@ -1,7 +1,7 @@
 package controller;
 
-import DTO.EsercizioDettaglioDTO;
-import DTO.SessioneDTO;
+import dto.EsercizioDettaglioDTO;
+import dto.SessioneDTO;
 import database.GestorePersistenza;
 import entity.*;
 
@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 
 public class IntesaSport {
+
+    public static final String EMAIL_ALLENATORE_LOGGATO = "mario.rossi@sport.it";
+
 
     public static List<String[]> visualizzaSessioniAssegnate(String email, LocalDate data, String stato, String disciplina){
         List<String[]> righeTabella = new ArrayList<>();
@@ -128,7 +131,7 @@ public class IntesaSport {
 
     public static List<Atleta> visualizzaAtletiAssociati(){
         GestoreUtenti gu = new GestoreUtenti();
-        return gu.visualizzaAtletiAssociati("mario.rossi@sport.it");
+        return gu.visualizzaAtletiAssociati(EMAIL_ALLENATORE_LOGGATO);
     }
 
     public static boolean creaNuovaSessione(SessioneDTO dto, String emailAtleta) {
@@ -159,7 +162,7 @@ public class IntesaSport {
             return false;
         }
 
-        Allenatore allenatoreLoggato = gp.trovaPerEmail(Allenatore.class, "mario.rossi@sport.it");
+        Allenatore allenatoreLoggato = gp.trovaPerEmail(Allenatore.class, EMAIL_ALLENATORE_LOGGATO);
         if (allenatoreLoggato == null) {
             return false;
         }

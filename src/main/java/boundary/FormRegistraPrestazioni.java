@@ -10,12 +10,11 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.util.List;
 import java.awt.*;
 
-public class formRegistraPrestazioni {
+public class FormRegistraPrestazioni {
     private JTextField textEmail;
     private JTextField textDisciplina;
     private JComboBox boxStatoSessione;
@@ -92,7 +91,7 @@ public class formRegistraPrestazioni {
         table1.getTableHeader().setResizingAllowed(true);
     }
 
-    public formRegistraPrestazioni() {
+    public FormRegistraPrestazioni() {
         panelModifica.setVisible(false);
 
         caricaSessioniButton.addActionListener(e -> {

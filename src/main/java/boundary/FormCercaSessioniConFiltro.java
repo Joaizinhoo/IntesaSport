@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.awt.*;
 
-public class formCercaSessioniConFiltro {
+public class FormCercaSessioniConFiltro {
     private JTextField textEmail;
     private JTextField textDisciplina;
     private JComboBox boxStatoSessione;
@@ -21,7 +21,7 @@ public class formCercaSessioniConFiltro {
     private JPanel panel;
     private DatePicker dataField;
 
-    public formCercaSessioniConFiltro() {
+    public FormCercaSessioniConFiltro() {
 
         caricaSessioniButton.addActionListener(e -> {
             String email = textEmail.getText();

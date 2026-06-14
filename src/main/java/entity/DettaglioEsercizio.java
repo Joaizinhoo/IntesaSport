@@ -2,6 +2,7 @@ package entity;
 
 import database.GestorePersistenza;
 import jakarta.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class DettaglioEsercizio {
@@ -133,13 +134,13 @@ public class DettaglioEsercizio {
         if (this == o) return true;
         if (!(o instanceof DettaglioEsercizio that)) return false;
         if (this.id == null || that.getId() == null) return false;
-        return java.util.Objects.equals(id, that.getId());
+        return Objects.equals(id, that.getId());
     }
 
     @Override
     public int hashCode() {
         if (id != null) {
-            return java.util.Objects.hash(id);
+            return Objects.hash(id);
         }
         return super.hashCode();
     }

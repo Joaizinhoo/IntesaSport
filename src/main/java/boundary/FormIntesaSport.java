@@ -26,7 +26,7 @@ public class FormIntesaSport {
             public void actionPerformed(ActionEvent e) {
 
                 if (cercaSessioniFrame == null || !cercaSessioniFrame.isDisplayable()) {
-                    formCercaSessioniConFiltro formInserimento = new formCercaSessioniConFiltro();
+                    FormCercaSessioniConFiltro formInserimento = new FormCercaSessioniConFiltro();
                     cercaSessioniFrame = formInserimento.apriFormCercaSessioni();
                     cercaSessioniFrame.setLocationRelativeTo(null);
                     cercaSessioniFrame.setVisible(true);
@@ -42,7 +42,7 @@ public class FormIntesaSport {
             public void actionPerformed(ActionEvent e) {
 
                 if (registraPrestazioniFrame == null || !registraPrestazioniFrame.isDisplayable()) {
-                    formRegistraPrestazioni formRegistraP = new formRegistraPrestazioni();
+                    FormRegistraPrestazioni formRegistraP = new FormRegistraPrestazioni();
                     registraPrestazioniFrame = formRegistraP.apriFormRegistraPrestazioni();
                     registraPrestazioniFrame.setLocationRelativeTo(null);
                     registraPrestazioniFrame.setVisible(true);
