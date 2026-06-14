@@ -198,7 +198,8 @@ public class FormRegistraPrestazioni {
                 }
 
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Inserisci solo numeri interi nei campi numerici!");
+                JOptionPane.showMessageDialog(null, "Inserisci solo numeri interi nei campi numerici!", "Errore",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
