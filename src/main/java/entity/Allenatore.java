@@ -1,5 +1,6 @@
 package entity;
 
+import database.GestorePersistenza;
 import jakarta.persistence.*;
 
 import java.util.*;
@@ -46,6 +47,12 @@ public class Allenatore extends Utente{
     public void setSessioni(List<SessioneAllenamento> sessioni){
         this.sessioni = sessioni;
     }
+
+    public boolean salvaSessione(SessioneAllenamento nuovaSessione){
+        GestorePersistenza gp = new GestorePersistenza();
+        return gp.salvaTutti(nuovaSessione);
+    }
+
 
     @Override
     public String toString() {

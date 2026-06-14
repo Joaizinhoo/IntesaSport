@@ -22,6 +22,20 @@ public class GestoreEsercizi {
         return esistente != null;
     }
 
+    public Esercizio cercaEsercizio(String nome) {
+
+        //Controllo se l'esercizio con quel nome è già presente nel DB (è unique)
+
+        GestorePersistenza gp = new GestorePersistenza();
+        Esercizio e = gp.cercaPrimoPerCampi(
+                Esercizio.class,
+                Map.of("nome", nome)
+        );
+        return e;
+    }
+
+
+
     public boolean creaNuovoEsercizio(String nome, String descrizione) {
         boolean esistente = esisteEsercizio(nome);
         if (esistente) {

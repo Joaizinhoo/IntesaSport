@@ -153,8 +153,8 @@ public class IntesaSport {
             return false;
         }
 
-        GestorePersistenza gp = new GestorePersistenza();
         GestoreUtenti gu = new GestoreUtenti();
+        GestoreEsercizi ge = new GestoreEsercizi();
 
         // Se l'email inserita è di un allenatore ritorna errore
         Atleta atleta = gu.ricercaAtletaPerEmail(emailAtleta);
@@ -162,7 +162,7 @@ public class IntesaSport {
             return false;
         }
 
-        Allenatore allenatoreLoggato = gp.trovaPerEmail(Allenatore.class, EMAIL_ALLENATORE_LOGGATO);
+        Allenatore allenatoreLoggato = gu.ricercaAllenatorePerEmail(EMAIL_ALLENATORE_LOGGATO);
         if (allenatoreLoggato == null) {
             return false;
         }
@@ -179,13 +179,13 @@ public class IntesaSport {
 
         // associo i dettagli allenamento
         for (EsercizioDettaglioDTO dettDTO : dto.getEsercizi()) {
-            Esercizio e = gp.cercaPrimoPerCampi(Esercizio.class, Map.of("nome", dettDTO.getNomeEx()));
+            Esercizio e = ge.cercaEsercizio(dettDTO.getNomeEx());
             if (e != null) {
                 nuovaSessione.creaDettaglioEsercizio(e, dettDTO.getDurata(), dettDTO.getRipetizioni());
             }
         }
 
-        return gp.salvaTutti(nuovaSessione);
+        return allenatoreLoggato.salvaSessione(nuovaSessione);
     }
 
 
