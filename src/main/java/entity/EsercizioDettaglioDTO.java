@@ -1,6 +1,5 @@
 package entity;
 
-import java.time.Duration;
 
 public class EsercizioDettaglioDTO {
     private String descrizioneEx;

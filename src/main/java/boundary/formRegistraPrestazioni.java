@@ -169,6 +169,12 @@ public class formRegistraPrestazioni {
                                 JOptionPane.ERROR_MESSAGE);
                         return;
                     }
+                    else if (ripetizioniInt > 100){
+                        JOptionPane.showMessageDialog(null,
+                                "Non sono accettabili più di 100 ripetizioni!", "Errore",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                 }
                 if(note.trim().length() > 60){
                     JOptionPane.showMessageDialog(null,
