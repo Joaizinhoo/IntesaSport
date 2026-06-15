@@ -28,10 +28,8 @@ public class FormIntesaSport {
 
         if (imgURL != null) {
             ImageIcon iconaOriginale = new ImageIcon(imgURL);
-            // 2. Ridimensionala se necessario (es. 120x120)
             Image imgScalata = iconaOriginale.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
 
-            // 3. Imposta l'icona direttamente sulla label del Designer (NON USARE .add()!)
             labelImmagine.setIcon(new ImageIcon(imgScalata));
         } else {
             System.err.println("Immagine non trovata! Controlla src/main/resources/");
@@ -132,6 +130,7 @@ public class FormIntesaSport {
         contentPane.setOpaque(true);
         contentPane.setPreferredSize(new Dimension(400, 650));
         registraPrestazioniButton = new JButton();
+        registraPrestazioniButton.setFocusable(true);
         registraPrestazioniButton.setText("Registra prestazioni");
         contentPane.add(registraPrestazioniButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
         final Spacer spacer1 = new Spacer();

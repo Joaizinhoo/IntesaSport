@@ -20,6 +20,7 @@
           </grid>
         </constraints>
         <properties>
+          <focusable value="true"/>
           <text value="Registra prestazioni"/>
         </properties>
       </component>
