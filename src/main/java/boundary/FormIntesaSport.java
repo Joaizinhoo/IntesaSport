@@ -8,12 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class FormIntesaSport {
     private JPanel contentPane;
     private JButton cercaSessioniButton;
     private JButton creaSessioneButton;
     private JButton registraPrestazioniButton;
+    private JLabel labelImmagine;
 
     private JFrame cercaSessioniFrame;
     private JFrame registraPrestazioniFrame;
@@ -21,6 +23,20 @@ public class FormIntesaSport {
     private JFrame creaEsercizioFrame;
 
     public FormIntesaSport() {
+
+        URL imgURL = getClass().getResource("/logo.png");
+
+        if (imgURL != null) {
+            ImageIcon iconaOriginale = new ImageIcon(imgURL);
+            // 2. Ridimensionala se necessario (es. 120x120)
+            Image imgScalata = iconaOriginale.getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+
+            // 3. Imposta l'icona direttamente sulla label del Designer (NON USARE .add()!)
+            labelImmagine.setIcon(new ImageIcon(imgScalata));
+        } else {
+            System.err.println("Immagine non trovata! Controlla src/main/resources/");
+        }
+
         cercaSessioniButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -110,31 +126,28 @@ public class FormIntesaSport {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(3, 7, new Insets(0, 0, 0, 0), -1, -1));
-        contentPane.setMaximumSize(new Dimension(600, 300));
-        contentPane.setMinimumSize(new Dimension(600, 300));
-        contentPane.setPreferredSize(new Dimension(600, 200));
-        cercaSessioniButton = new JButton();
-        cercaSessioniButton.setText("Cerca sessioni");
-        contentPane.add(cercaSessioniButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
-        creaSessioneButton = new JButton();
-        creaSessioneButton.setText("Crea sessione");
-        contentPane.add(creaSessioneButton, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
+        contentPane.setLayout(new GridLayoutManager(4, 3, new Insets(0, 0, 20, 0), -1, -1));
+        contentPane.setMaximumSize(new Dimension(400, 650));
+        contentPane.setMinimumSize(new Dimension(400, 650));
+        contentPane.setOpaque(true);
+        contentPane.setPreferredSize(new Dimension(400, 650));
         registraPrestazioniButton = new JButton();
         registraPrestazioniButton.setText("Registra prestazioni");
-        contentPane.add(registraPrestazioniButton, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
+        contentPane.add(registraPrestazioniButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
         final Spacer spacer1 = new Spacer();
-        contentPane.add(spacer1, new GridConstraints(1, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(20, -1), null, 0, false));
+        contentPane.add(spacer1, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(20, -1), null, 0, false));
         final Spacer spacer2 = new Spacer();
-        contentPane.add(spacer2, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(20, -1), null, 0, false));
-        final Spacer spacer3 = new Spacer();
-        contentPane.add(spacer3, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(20, -1), null, 0, false));
-        final Spacer spacer4 = new Spacer();
-        contentPane.add(spacer4, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(20, -1), null, 0, false));
-        final Spacer spacer5 = new Spacer();
-        contentPane.add(spacer5, new GridConstraints(2, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        final Spacer spacer6 = new Spacer();
-        contentPane.add(spacer6, new GridConstraints(0, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        contentPane.add(spacer2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, new Dimension(20, -1), null, 0, false));
+        labelImmagine = new JLabel();
+        labelImmagine.setDoubleBuffered(true);
+        labelImmagine.setText("");
+        contentPane.add(labelImmagine, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        cercaSessioniButton = new JButton();
+        cercaSessioniButton.setText("Cerca sessioni");
+        contentPane.add(cercaSessioniButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
+        creaSessioneButton = new JButton();
+        creaSessioneButton.setText("Crea sessione");
+        contentPane.add(creaSessioneButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(-1, 100), null, 0, false));
     }
 
     /**
