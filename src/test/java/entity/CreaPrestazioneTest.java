@@ -25,7 +25,7 @@ public class CreaPrestazioneTest {
         assertFalse(risultato);
     }
 
-    // TC_02 - Cammino: 1-2-3-4-5-6-7-8
+    // 2 - Cammino: 1-2-3-4-5-6-7-8
     @Test
     public void testCase2_SalvataggioSuccesso() {
         contesto.setPrestazione(null); // Precondizione
@@ -36,7 +36,7 @@ public class CreaPrestazioneTest {
         assertNotNull(contesto.getPrestazione());
     }
 
-    // TC_03 - Cammino: 1-2-10-11-12-13-14-15-16-17-18
+    // 3 - Cammino: 1-2-10-11-12-13-14-15-16-17-18
     @Test
     public void testCase3_AggiornaTuttiICampi() {
         Prestazione prestazioneEsistente = new Prestazione(10, "Prova vecchia", 5);
@@ -50,7 +50,7 @@ public class CreaPrestazioneTest {
         assertEquals("Prova nuova", prestazioneEsistente.getNote());
     }
 
-    // TC_04 - Cammino: 1-2-10-11-13-14-15-16-17-18
+    // 4 - Cammino: 1-2-10-11-13-14-15-16-17-18
     @Test
     public void testCase4_SaltaAggiornamentoRipetizioni() {
         String noteIniziali = "Prova vecchia";
@@ -65,7 +65,7 @@ public class CreaPrestazioneTest {
         assertEquals("Prova nuova", prestazioneEsistente.getNote());
     }
 
-    // TC_05 - Cammino: 1-2-10-11-12-13-15-16-17-18
+    // 5 - Cammino: 1-2-10-11-12-13-15-16-17-18
     @Test
     public void testCase5_SaltaAggiornamentoDurata() {
         Prestazione prestazioneEsistente = new Prestazione(10, "Prova vecchia", 5);
@@ -79,7 +79,7 @@ public class CreaPrestazioneTest {
         assertEquals("Prova nuova", prestazioneEsistente.getNote());
     }
 
-    // TC_06 - Cammino: 1-2-10-11-12-13-14-15-17-18
+    // 6 - Cammino: 1-2-10-11-12-13-14-15-17-18
     @Test
     public void testCase6_SaltaAggiornamentoNote() {
         String noteIniziali = "Prova vecchia";
