@@ -117,8 +117,8 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
 
                 // Modificato: passiamo direttamente il valore primitivo 'minuti' (int) al costruttore di EsercizioDettaglioDTO
                 dettaglioCreato = new EsercizioDettaglioDTO(
-                        (Integer) ripetizioni,
-                        (Integer) minuti,
+                        ripetizioni,
+                        minuti,
                         esercizioSelezionato.getNomeEx(),
                         esercizioSelezionato.getDescrizioneEx(),
                         esercizioSelezionato.getId()
