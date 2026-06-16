@@ -6,9 +6,9 @@ import java.time.LocalDate;
 
 public class PopolaDBIntesaSport {
 
-    public static void main(String[] args) {
-        GestorePersistenza gp = new GestorePersistenza();
+    GestorePersistenza gp = new GestorePersistenza();
 
+    public void popolaDB(){
         try {
             // 1. ALLENATORI - ATLETI
             Allenatore mRossi = new Allenatore("mario.rossi@sport.it", "Mario", "Rossi", "Calcio e Atletica", 1001);

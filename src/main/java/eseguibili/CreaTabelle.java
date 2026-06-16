@@ -12,6 +12,9 @@ public class CreaTabelle {
 
         emf.close();
 
-        System.out.println("Ho avviato Hibernate");
+        PopolaDBIntesaSport DB = new PopolaDBIntesaSport();
+        DB.popolaDB();
+
+        System.out.println("Create tabelle e popolato il database! Pronto all'utilizzo.");
     }
 }
