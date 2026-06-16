@@ -204,10 +204,10 @@ public class FormCreaSessioneAllenamento extends JFrame {
                         listaEserciziSessione
                 );
 
-                if (atletaSelezionato == null || dataSelezionata == null || titoloSessione.isEmpty()) {
+                if (atletaSelezionato == null || dataSelezionata == null || titoloSessione.isEmpty() || descrizione.isEmpty()) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "Inserire Titolo, Atleta e Data!",
+                            "Inserire Titolo, Atleta, Data e Descrizione!",
                             "Errore", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
