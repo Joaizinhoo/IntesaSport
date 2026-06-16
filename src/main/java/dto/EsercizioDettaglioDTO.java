@@ -38,7 +38,7 @@ public class EsercizioDettaglioDTO {
 
     @Override
     public String toString() {
-        return this.nomeEx; // Così la JList mostrerà il nome pulito dell'esercizio!
+        return this.nomeEx; // per la JList del formAggiungiEsercizio che mostrerà il nome dell'esercizio senza altri dettagli
     }
 
 }
