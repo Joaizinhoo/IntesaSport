@@ -35,4 +35,11 @@ public class EsercizioDettaglioDTO {
     public Long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return this.nomeEx; // Così la JList mostrerà il nome pulito dell'esercizio!
+    }
+
 }
+

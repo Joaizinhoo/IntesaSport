@@ -18,7 +18,6 @@ import java.util.*;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import controller.IntesaSport;
-import entity.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -188,11 +187,11 @@ public class FormCreaSessioneAllenamento extends JFrame {
         salvaSessioneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String titoloSessione = txtTitoloSessione.getText();
-                Atleta atletaSelezionato = (Atleta) comboAtleti.getSelectedItem();
+                String titoloSessione = txtTitoloSessione.getText().trim();
+                String atletaSelezionato = (String) comboAtleti.getSelectedItem();
                 LocalDate dataSelezionata = datePicker1.getDate();
                 int durata = (Integer) spinnerDurata.getValue();
-                String descrizione = txtDescrizione.getText();
+                String descrizione = txtDescrizione.getText().trim();
 
                 // Modificato: passiamo direttamente la variabile primitiva 'durata' (int) al posto di 'Duration.ofMinutes(durata)'
                 SessioneDTO sessioneDaCreare = new SessioneDTO(
@@ -201,7 +200,7 @@ public class FormCreaSessioneAllenamento extends JFrame {
                         descrizione,
                         dataSelezionata,
                         durata,
-                        StatoSessione.ASSEGNATA,
+                        null,
                         listaEserciziSessione
                 );
 
@@ -223,7 +222,7 @@ public class FormCreaSessioneAllenamento extends JFrame {
 
                 boolean successo = IntesaSport.creaNuovaSessione(
                         sessioneDaCreare,
-                        atletaSelezionato.getEmail()
+                        atletaSelezionato
                 );
 
                 if (successo) {
@@ -285,11 +284,11 @@ public class FormCreaSessioneAllenamento extends JFrame {
 
         comboAtleti.removeAllItems();
 
-        List<Atleta> listaAtleti = IntesaSport.visualizzaAtletiAssociati();
+        List<String> listaAtleti = IntesaSport.visualizzaAtletiAssociati();
 
         if (listaAtleti != null) {
-            for (Atleta a : listaAtleti) {
-                comboAtleti.addItem(a);
+            for (String mail : listaAtleti) {
+                comboAtleti.addItem(mail);
             }
         }
     }

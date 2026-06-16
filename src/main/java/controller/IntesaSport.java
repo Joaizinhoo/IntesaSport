@@ -3,13 +3,11 @@ package controller;
 import boundary.servizionotifiche.IServizioNotifiche;
 import dto.EsercizioDettaglioDTO;
 import dto.SessioneDTO;
-import database.GestorePersistenza;
 import entity.*;
-
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
+
 
 public class IntesaSport {
 
@@ -116,28 +114,48 @@ public class IntesaSport {
 
     //Il controller deve poter fornire un metodo alle boundary per poter popolare i menu di selezione degli esercizi
 
-    public static List<Esercizio> visualizzaListaEsercizi() {
+    public static List<EsercizioDettaglioDTO> visualizzaListaEsercizi() {
         GestoreEsercizi ges = new GestoreEsercizi();
-        return ges.visualizzaListaEsercizi();
+        List<Esercizio> esercizi = ges.visualizzaListaEsercizi();
+        List<EsercizioDettaglioDTO> listaDTO = new ArrayList<>();
+
+        for(Esercizio e : esercizi) {
+            listaDTO.add(new EsercizioDettaglioDTO(0, 0, e.getNome(), e.getDescrizione(), e.getId()));
+        }
+        return listaDTO;
     }
 
-    public static List<Atleta> visualizzaAtletiAssociati(){
+    public static List<String> visualizzaAtletiAssociati(){
         GestoreUtenti gu = new GestoreUtenti();
-        return gu.visualizzaAtletiAssociati(EMAIL_ALLENATORE_LOGGATO);
+        List<Atleta> atleti = gu.visualizzaAtletiAssociati(EMAIL_ALLENATORE_LOGGATO);
+        List<String> emailAtleti = new ArrayList<>();
+
+        for(Atleta a : atleti) {
+            emailAtleti.add(a.getEmail());
+        }
+        return emailAtleti;
     }
 
     public static boolean creaNuovaSessione(SessioneDTO dto, String emailAtleta) {
 
         // controlli sui dati
-        if(dto.getTitolo().isEmpty()){
+        if(dto.getTitolo().isEmpty() || dto.getTitolo().trim().isEmpty() || dto.getTitolo().length() >= 255){
             return false;
         }
 
-        if (emailAtleta == null || emailAtleta.isEmpty()) {
+        if (emailAtleta == null || emailAtleta.trim().isEmpty() || emailAtleta.length()>=255) {
             return false;
         }
 
-        if (dto.getData() == null) {
+        if (dto.getData() == null || dto.getData().isBefore(LocalDate.now())) {
+            return false;
+        }
+
+        if (dto.getDescrizione() == null || dto.getDescrizione().trim().isEmpty() || dto.getDescrizione().length() >= 1000) {
+            return false;
+        }
+
+        if (dto.getDurataPrevista() < 0) {
             return false;
         }
 

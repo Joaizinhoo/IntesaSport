@@ -3,7 +3,6 @@ package boundary;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import controller.IntesaSport;
-import entity.Esercizio;
 import dto.EsercizioDettaglioDTO;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class FormAggiungiEsercizioAllaSessione extends JFrame {
 
-    private JList<Esercizio> listEserciziDatabase;
+    private JList<EsercizioDettaglioDTO> listEserciziDatabase;
     private JButton creaNuovoEsercizioButton;
     private JSpinner repetitionSpinner;
     private JSpinner durationSpinner;
@@ -45,10 +44,10 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 //evito il doppio click
                 if (!e.getValueIsAdjusting()) {
-                    Esercizio selezionato = listEserciziDatabase.getSelectedValue();
+                    EsercizioDettaglioDTO selezionato = listEserciziDatabase.getSelectedValue();
                     if (selezionato != null) {
                         // aggiunge descrizione
-                        txtDescrizioneEse.setText(selezionato.getDescrizione());
+                        txtDescrizioneEse.setText(selezionato.getDescrizioneEx());
                     } else {
                         // svuota descrizione
                         txtDescrizioneEse.setText("");
@@ -82,14 +81,14 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
 
 
                 // RECUPERO I DATI DAL FORM
-                Esercizio esercizioSelezionato = listEserciziDatabase.getSelectedValue();
+                EsercizioDettaglioDTO esercizioSelezionato = listEserciziDatabase.getSelectedValue();
 
                 if (esercizioSelezionato == null) {
                     JOptionPane.showMessageDialog(FormAggiungiEsercizioAllaSessione.this,
                             "Selezionare un esercizio dalla lista",
                             "Nessun Esercizio Selezionato",
                             JOptionPane.WARNING_MESSAGE);
-                    return; // Blocca l'esecuzione
+                    return;
                 }
 
                 //Leggo i dati dai JSpinner
@@ -118,11 +117,11 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
 
                 // Modificato: passiamo direttamente il valore primitivo 'minuti' (int) al costruttore di EsercizioDettaglioDTO
                 dettaglioCreato = new EsercizioDettaglioDTO(
-                        ripetizioni,
-                        minuti,
-                        esercizioSelezionato.getNome(),
-                        esercizioSelezionato.getDescrizione(),
-                        null
+                        (Integer) ripetizioni,
+                        (Integer) minuti,
+                        esercizioSelezionato.getNomeEx(),
+                        esercizioSelezionato.getDescrizioneEx(),
+                        esercizioSelezionato.getId()
                 );
                 confermato = true;
 
@@ -213,11 +212,11 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
     }
 
     private void ricaricaListaEsercizi() {
-        DefaultListModel<Esercizio> modelloLista = new DefaultListModel<>();
-        List<Esercizio> eserciziDalDB = IntesaSport.visualizzaListaEsercizi();
+        DefaultListModel<EsercizioDettaglioDTO> modelloLista = new DefaultListModel<>();
+        List<EsercizioDettaglioDTO> eserciziDalDB = IntesaSport.visualizzaListaEsercizi();
 
-        for (Esercizio es : eserciziDalDB) {
-            modelloLista.addElement(es);
+        for (EsercizioDettaglioDTO esercizio : eserciziDalDB) {
+            modelloLista.addElement(esercizio);
         }
 
         listEserciziDatabase.setModel(modelloLista);
@@ -226,10 +225,10 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
 
     // Questo metodo mi serve per selezionare automaticamente un esercizio appena creato
     private void selezionaEsercizioNellaLista(String nomeEsercizio) {
-        ListModel<Esercizio> modello = listEserciziDatabase.getModel();
+        ListModel<EsercizioDettaglioDTO> modello = listEserciziDatabase.getModel();
         for (int i = 0; i < modello.getSize(); i++) {
-            Esercizio es = modello.getElementAt(i);
-            if (es.getNome().equals(nomeEsercizio)) {
+            EsercizioDettaglioDTO es = modello.getElementAt(i);
+            if (es.getNomeEx().equals(nomeEsercizio)) {
                 // trovo l'indice dell'ultimo elemento inserito
                 listEserciziDatabase.setSelectedIndex(i);
                 // scrollo la lista all'elemento trovato (ultimo ese)

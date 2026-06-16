@@ -99,7 +99,7 @@ public class FormIntesaSport {
         frame.setContentPane(mainFrame.contentPane);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1200);
+        frame.setSize(1000, 800);
         frame.setResizable(false);
         frame.pack();
         frame.setLocationRelativeTo(null);
