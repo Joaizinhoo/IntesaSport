@@ -20,7 +20,7 @@ public class Atleta extends Utente{
     private String esperienza;
     private String obiettiviSportivi;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany
     @JoinTable(
             name = "atleta_allenatore",
             joinColumns = { @JoinColumn(name = "email_atleta") },
