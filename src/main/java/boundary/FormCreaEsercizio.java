@@ -32,7 +32,7 @@ public class FormCreaEsercizio extends JDialog {
 
         this.setContentPane(contentPane);
         this.pack();
-        this.setMinimumSize(new Dimension(350, 250));
+        this.setMinimumSize(new Dimension(350, 350));
 
 
         salvaButton.addActionListener(new ActionListener() {
@@ -115,7 +115,7 @@ public class FormCreaEsercizio extends JDialog {
      */
     private void $$$setupUI$$$() {
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(12, 4, new Insets(0, 0, 0, 0), -1, -1));
+        contentPane.setLayout(new GridLayoutManager(12, 4, new Insets(20, 20, 20, 20), -1, -1));
         contentPane.setMaximumSize(new Dimension(280, 250));
         contentPane.setMinimumSize(new Dimension(280, 250));
         contentPane.setPreferredSize(new Dimension(280, 250));
