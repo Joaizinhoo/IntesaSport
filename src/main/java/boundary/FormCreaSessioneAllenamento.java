@@ -50,7 +50,7 @@ public class FormCreaSessioneAllenamento extends JFrame {
     private void $$$setupUI$$$() {
         createUIComponents();
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(14, 11, new Insets(0, 0, 0, 0), -1, -1));
+        contentPane.setLayout(new GridLayoutManager(14, 11, new Insets(20, 20, 20, 20), -1, -1));
         contentPane.setMaximumSize(new Dimension(700, 10500));
         contentPane.setMinimumSize(new Dimension(500, 450));
         contentPane.setPreferredSize(new Dimension(500, 450));

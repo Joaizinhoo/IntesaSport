@@ -35,7 +35,6 @@ public class FormCreaEsercizio extends JDialog {
         this.setMinimumSize(new Dimension(350, 250));
 
 
-
         salvaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -166,7 +165,7 @@ public class FormCreaEsercizio extends JDialog {
     }
 
     //Serve a passare il nome del nuovo esercizio ad altre classi
-    public String getNomeEsercizioCreato(){
+    public String getNomeEsercizioCreato() {
         return this.nomeEsercizioCreato;
     }
 

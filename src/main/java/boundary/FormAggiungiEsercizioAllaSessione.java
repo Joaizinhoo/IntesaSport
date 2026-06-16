@@ -153,7 +153,7 @@ public class FormAggiungiEsercizioAllaSessione extends JFrame {
     private void $$$setupUI$$$() {
         createUIComponents();
         contentPane = new JPanel();
-        contentPane.setLayout(new GridLayoutManager(10, 3, new Insets(0, 0, 0, 0), -1, -1));
+        contentPane.setLayout(new GridLayoutManager(10, 3, new Insets(20, 20, 20, 20), -1, -1));
         contentPane.setMaximumSize(new Dimension(1000, 1000));
         final JLabel label1 = new JLabel();
         label1.setText("Seleziona un esercizio da aggiungere");
